@@ -1,3 +1,19 @@
+## Hey You, are you developing? Read This!
+
+React components are separated into components or containers, [read this for details](https://medium.com/@dan_abramov/smart-and-dumb-components-7ca2f9a7c7d0).
+
+When creating a new component, use crcf from the cmd line.  
+To do this, `cd` into the folder you want to create your React component.  
+Then run `npx crcf myComponentName` and it'll auto generate a folder with a css, test, and jsx file.  
+If you're missing `npx`, run `npm install -g npx` to get it in your global scope.
+
+When you commit, prettier and eslint are run and follow the configs in the root directory.  
+This helps us keep code clean and consistent!
+
+That's all. Have fun :)
+
+---
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
