@@ -1,0 +1,65 @@
+version: 2.1
+
+references:
+  container_config: &container_config
+    docker:
+      - image: circleci/node:10
+    working_directory: /tmp
+
+jobs:
+  setup:
+    <<: *container_config
+    steps:
+      - checkout
+      - run: npm install
+
+  lint:
+    <<: *container_config
+    steps:
+      - checkout
+      - run: npm install
+      - run: npm run test
+
+  test:
+    <<: *container_config
+    steps:
+      - checkout
+      - run: npm install
+      - run: npm run eslint-check
+
+  build:
+    <<: *container_config
+    steps:
+      - checkout
+      - run: npm install
+      - run: npm run build
+      - store_artifacts:
+          path: /tmp/build
+
+  stage:
+    <<: *container_config
+    steps:
+      - checkout
+      - run: npm install
+      - run: npm run build
+      - run: echo "Placeholder for deploy to staging"
+
+  deploy:
+    <<: *container_config
+    steps:
+      - checkout
+      - run: npm install
+      - run: npm run build
+      - run: echo "Placeholder for commit to prod"
+      - run: echo "Placeholder for deploy to staging"
+
+workflows:
+  version: 2
+  lint_test_build_stage_deploy:
+    jobs:
+      - setup
+      - lint
+      - test
+      - build
+      - stage
+      - deploy
