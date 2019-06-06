@@ -6,9 +6,10 @@ references:
       - image: circleci/node:10
     working_directory: ~/repo
 
+  workspace_root: &workspace_root /tmp/workspace
   attach_workspace: &attach_workspace
     attach_workspace:
-    at: /tmp/workspace
+      at: *workspace_root
 
   restore_repo: &restore_repo
     restore_cache:
@@ -69,24 +70,33 @@ jobs:
       - *restore_node_modules
       - run: npm run build
       - store_artifacts:
-          path: /tmp/build
+          path: build
+      - persist_to_workspace:
+          root: *workspace_root
+          paths:
+            - build
 
   stage:
     <<: *container_config
     steps:
-      - *restore_repo
-      - *restore_node_modules
-      - run: npm run build
+      - *attach_workspace
+      - run:
+          name: Restore build assets from workspace
+          command: |
+            rm -r build
+            mv /tmp/workspace/build build
       - run: echo "Placeholder for deploy to staging"
 
   deploy:
     <<: *container_config
     steps:
-      - *restore_repo
-      - *restore_node_modules
-      - run: npm run build
-      - run: echo "Placeholder for commit to prod"
-      - run: echo "Placeholder for deploy to staging"
+      - *attach_workspace
+      - run:
+          name: Restore build assets from workspace
+          command: |
+            rm -r build
+            mv /tmp/workspace/build build
+      - run: echo "Placeholder for deploy to prod"
 
 workflows:
   version: 2
@@ -111,4 +121,4 @@ workflows:
             - build
       - deploy:
           requires:
-            - stage
+            - build
