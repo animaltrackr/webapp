@@ -85,7 +85,7 @@ jobs:
       - run:
           name: Restore build assets from workspace
           command: |
-            rm -r build
+            rm -rf build
             mv /tmp/workspace/build build
       - run: echo "Placeholder for deploy to staging"
 
@@ -96,7 +96,7 @@ jobs:
       - run:
           name: Restore build assets from workspace
           command: |
-            rm -r build
+            rm -rf build
             mv /tmp/workspace/build build
       - run: echo "Placeholder for deploy to prod"
 
