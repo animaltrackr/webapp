@@ -69,12 +69,12 @@ jobs:
       - *restore_repo
       - *restore_node_modules
       - run: npm run build
-      - run: ls -la /
-      - run: ls -la /tmp
       - store_artifacts:
           path: build
+      - run: mkdir -p /tmp/workspace
+      - run: mv build /tmp/workspace
       - persist_to_workspace:
-          root: /tmp/workspace
+          root: *workspace_root
           paths:
             - build
 
