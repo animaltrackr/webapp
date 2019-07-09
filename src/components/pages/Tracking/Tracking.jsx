@@ -1,12 +1,9 @@
 import React, { Component } from 'react';
+import Map from '../../Map/Map';
 
 class Tracking extends Component {
 	render() {
-		return (
-			<div>
-				<h3>This is the page we can display tracking data for the collar</h3>
-			</div>
-		);
+		return <Map />;
 	}
 }
 
