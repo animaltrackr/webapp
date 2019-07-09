@@ -8,7 +8,7 @@ import {
 } from 'react-router-dom';
 import MainPage from './components/pages';
 import Tracking from './components/pages/Tracking';
-import NotFoundPage from './components/pages/404';
+import NotFoundPage from './components/pages/NotFoundPage';
 
 class App extends Component {
 	render() {
