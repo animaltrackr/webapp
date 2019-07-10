@@ -1,9 +1,15 @@
 import React, { Component } from 'react';
 import Map from '../../Map/Map';
+import NavBar from '../../NavBar/NavBar';
 
 class Tracking extends Component {
 	render() {
-		return <Map />;
+		return (
+			<div>
+				<NavBar />
+				<Map />
+			</div>
+		);
 	}
 }
 

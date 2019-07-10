@@ -10,11 +10,14 @@ class Map extends Component {
 	};
 	render() {
 		return (
-			<div style={{ height: '100vh', width: '100%' }}>
+			<div style={{ height: 'calc(100vh - 64px)', width: '100%' }}>
 				<GoogleMapReact
 					bootstrapURLKeys={{ key: process.env.REACT_APP_GOOGLE_API_KEY }}
 					defaultCenter={this.props.center}
 					defaultZoom={this.props.zoom}
+					options={function(maps) {
+						return { mapTypeId: 'satellite' };
+					}}
 				/>
 			</div>
 		);
