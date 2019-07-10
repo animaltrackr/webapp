@@ -6,12 +6,13 @@ class Map extends Component {
 	static defaultProps = {
 		center: { lat: 48.462, lng: -123.313 },
 		zoom: 14,
+		apiKey: '',
 	};
 	render() {
 		return (
 			<div style={{ height: '100vh', width: '100%' }}>
 				<GoogleMapReact
-					bootstrapURLKeys={{ key: 'AIzaSyAXALRu_hX1ENLCkT-ojdg-N-rsBvun-8Y' }}
+					bootstrapURLKeys={{ key: process.env.REACT_APP_GOOGLE_API_KEY }}
 					defaultCenter={this.props.center}
 					defaultZoom={this.props.zoom}
 				/>
