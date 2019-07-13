@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import GoogleMapReact from 'google-map-react';
-import MenuIcon from '@material-ui/icons/Menu';
+import { Icon } from 'antd';
 import PropTypes from 'prop-types';
-import PlaceIcon from '@material-ui/icons/Place';
 
 class Map extends Component {
 	render() {
@@ -21,8 +20,10 @@ class Map extends Component {
 							return element['last_location'].map(pos => {
 								console.log(pos);
 								return (
-									<PlaceIcon
-										style={{ color: element['colour'] }}
+									<Icon
+										type="environment"
+										theme="filled"
+										style={{ color: element['colour'], fontSize: '18px' }}
 										lat={pos[0]}
 										lng={pos[1]}
 										text="My Marker"

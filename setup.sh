@@ -1,6 +1,6 @@
 #!/bin/bash
 
- Install aws client
+# Install aws client
 echo -e "\n\n\nInstalling aws client..."
 brew install awscli
 
