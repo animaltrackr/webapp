@@ -1,11 +1,80 @@
-.Navbar.Brand {
-	display: inline;
+.ant-menu-submenu-open.ant-menu-submenu- {
+	color: darkgreen;
 }
 
-.Navbar.Toggle {
-	display: inline;
+.ant-menu.ant-menu-light.ant-menu-root.ant-menu-horizontal {
+	width: 100%;
 }
 
-.Navbar.Collapse {
-	display: inline;
+.ant-menu-submenu.ant-menu-submenu-horizontal {
+	left: 30%;
+}
+.ant-menu-item.ant-menu-item-active {
+	color: darkgreen;
+}
+
+/*** TITLE ***/
+.ant-menu-horizontal > .ant-menu-item:hover,
+.ant-menu-horizontal > .ant-menu-item-active,
+.ant-menu-horizontal > .ant-menu-submenu .ant-menu-submenu-title:hover {
+	color: darkgreen;
+}
+
+.ant-menu-horizontal > .ant-menu-item:hover,
+.ant-menu-horizontal > .ant-menu-item-active,
+.ant-menu-horizontal > .ant-menu-submenu .ant-menu-submenu-title:focus {
+	color: darkgreen;
+	border-bottom: 2px solid darkgreen;
+}
+
+.ant-menu-submenu-title:active {
+	color: darkgreen;
+}
+
+.ant-menu-item.ant-menu-item-active {
+	background-color: rgba(0, 151, 19, 0.3);
+}
+
+.ant-menu-item:not(.ant-menu-horizontal).ant-menu-item-selected {
+	background-color: rgba(0, 151, 19, 0.3);
+}
+
+.ant-menu-horizontal > .ant-menu-submenu:hover,
+.ant-menu-horizontal > .ant-menu-item-active {
+	color: darkgreen;
+	border-bottom: 2px solid darkgreen;
+}
+
+.ant-menu-horizontal > .ant-menu-submenu-selected {
+	color: black;
+	border-bottom: 2px solid transparent;
+}
+
+.ant-menu-item:hover,
+.ant-menu-item-active,
+.ant-menu:not(.ant-menu-inline) .ant-menu-submenu-open,
+.ant-menu-submenu-active,
+.ant-menu-submenu-title:hover {
+	color: darkgreen;
+}
+
+.ant-menu-horizontal > .ant-menu-item-active,
+.ant-menu-horizontal > .ant-menu-submenu-active,
+.ant-menu-horizontal > .ant-menu-item-open,
+.ant-menu-horizontal > .ant-menu-submenu-open,
+.ant-menu-horizontal > .ant-menu-item-selected {
+	border-bottom: 2px solid darkgreen;
+}
+
+.ant-typography a {
+	color: darkgray;
+}
+
+.ant-typography a:focus,
+.ant-typography a:hover {
+	color: darkgreen;
+}
+
+.ant-menu-item-selected {
+	color: darkgreen;
 }
