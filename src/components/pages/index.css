@@ -1,0 +1,129 @@
+/* ----------    Helper Rules    ---------- */
+/*  Reusable css things to help out.        */
+.svg {
+	background-position: center;
+	background-repeat: no-repeat;
+}
+
+.text {
+	color: #704320;
+	text-align: left;
+}
+
+.desc-img {
+	width: 270px;
+	height: 270px;
+	background-size: contain;
+}
+
+.desc-area {
+	margin: 7vh 0vw;
+}
+
+.animated-fade-up {
+	opacity: 0;
+	animation-duration: 1s;
+	animation-fill-mode: both;
+	-webkit-animation-duration: 1s;
+	-webkit-animation-fill-mode: both;
+	-moz-animation-duration: 1s;
+	-moz-animation-fill-mode: both;
+}
+
+/* ----------    Override Rules    ---------- */
+#antd-override-bg-color {
+	background-color: #ffffff;
+}
+
+.antd-override-button-color {
+	background-color: #a9cc62;
+	border-color: #a9cc62;
+
+	animation-delay: 2s;
+	animation-name: fadeUp;
+	-webkit-animation-name: fadeUp;
+	-moz-animation-name: fadeUp;
+}
+
+.antd-override-button-color:hover {
+	background-color: #94ba47;
+	border-color: #94ba47;
+}
+
+/* ----------    Hero Section    ---------- */
+.hero-image {
+	background-image: url('./images/mountains.svg');
+	height: 92vh;
+	background-size: cover;
+	position: relative;
+}
+
+.hero-text {
+	position: absolute;
+	max-width: 550px;
+	top: 14%;
+	left: 10%;
+}
+
+.title-text {
+	font-size: 3rem;
+	margin-bottom: 0.2rem;
+
+	animation-name: fadeUp;
+	-webkit-animation-name: fadeUp;
+	-moz-animation-name: fadeUp;
+}
+
+.highlight-text {
+	font-size: 1.15rem;
+
+	animation-delay: 1s;
+	animation-name: fadeUp;
+	-webkit-animation-name: fadeUp;
+	-moz-animation-name: fadeUp;
+}
+
+/* ----------    Description Section    ---------- */
+#description {
+	margin: 5vh 15vw;
+}
+
+/* ----------    Description SVG embeds    ---------- */
+.deer-img {
+	background-image: url('./images/deer.svg');
+}
+.house-img {
+	background-image: url('./images/house.svg');
+}
+.partner-img {
+	background-image: url('./images/partner.svg');
+}
+
+/* ----------    Animation    ---------- */
+@keyframes fadeUp {
+	from {
+		transform: translate3d(0, 40px, 0);
+	}
+	to {
+		transform: translate3d(0, 0, 0);
+		opacity: 1;
+	}
+}
+@-moz-keyframes fadeUp {
+	from {
+		transform: translate3d(0, 40px, 0);
+	}
+	to {
+		transform: translate3d(0, 0, 0);
+		opacity: 1;
+	}
+}
+@-webkit-keyframes fadeUp {
+	from {
+		transform: translate3d(0, 40px, 0);
+	}
+	to {
+		transform: translate3d(0, 0, 0);
+		opacity: 1;
+	}
+}
