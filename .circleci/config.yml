@@ -92,6 +92,11 @@ jobs:
           command: |
             rm -rf build
             mv /tmp/workspace/build build
+      - run:
+          name: Setup git
+          command: |
+            git config user.email "deploy.script@circleci.com"
+            git config user.name "CircleCI"
       - run: npm run deploy-only
 
   deploy:
