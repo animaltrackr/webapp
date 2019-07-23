@@ -81,17 +81,21 @@ jobs:
   stage:
     <<: *container_config
     steps:
+      - *restore_repo
+      - *restore_node_modules
       - *attach_workspace
       - run:
           name: Restore build assets from workspace
           command: |
             rm -rf build
             mv /tmp/workspace/build build
-      - run: npm run deploy
+      - run: npm run deploy-only
 
   deploy:
     <<: *container_config
     steps:
+      - *restore_repo
+      - *restore_node_modules
       - *attach_workspace
       - run:
           name: Restore build assets from workspace
