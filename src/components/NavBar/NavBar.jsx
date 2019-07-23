@@ -1,7 +1,9 @@
-import React, { Component } from 'react';
-import { Menu, Icon, Typography } from 'antd';
+import React from 'react';
+import Menu from 'antd/lib/menu';
+import Typography from 'antd/lib/typography';
+
 import { Link } from 'react-router-dom';
-import styles from './NavBar.css';
+import './NavBar.css';
 
 const { Title } = Typography;
 const { SubMenu } = Menu;
@@ -18,17 +20,19 @@ class NavBar extends React.Component {
 				<SubMenu
 					title={<span className="submenu-title-wrapper">Active Collars</span>}
 				>
-					{this.props.deerStates.map((element, index) => {
-						return (
-							<Menu.ItemGroup title={element['name']}>
-								<Menu.Item key={index} onClick={this.props.handler}>
-									Show Tracks
-								</Menu.Item>
-							</Menu.ItemGroup>
-						);
-					})}
+					{this.props.deerStates
+						? this.props.deerStates.map((element, index) => {
+								return (
+									<Menu.ItemGroup title={element['name']}>
+										<Menu.Item key={index} onClick={this.props.handler}>
+											Show Tracks
+										</Menu.Item>
+									</Menu.ItemGroup>
+								);
+						  })
+						: ''}
 					<Menu.Item
-						key={this.props.deerStates.length + 1}
+						key={this.props.deerStates ? this.props.deerStates.length + 1 : 1}
 						onClick={this.props.handler}
 					>
 						Show All

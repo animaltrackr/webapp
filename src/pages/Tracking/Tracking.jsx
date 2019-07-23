@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import Map from '../../Map/Map';
-import NavBar from '../../NavBar/NavBar';
+import Map from '../../components/Map/Map';
+import NavBar from '../../components/NavBar/NavBar';
 import { PropTypes } from 'prop-types';
 
 class Tracking extends Component {
@@ -10,19 +10,29 @@ class Tracking extends Component {
 		this.state = {
 			deerStates: this.props.deerStates,
 			showAll: false,
+			hideFilter: true,
 		};
 	}
 
 	handler(e) {
-		if (e.key == this.props.deerStates.length + 1) {
-			console.log(this.state.showAll);
-
+		if (e.key === this.props.deerStates.length + 1) {
 			this.setState({ showAll: !this.state.showAll });
 			return;
 		}
 		var temp = this.props.deerStates;
 		temp[e.key].state = !temp[e.key].state;
 		this.setState({ deerStates: temp });
+
+		for (var i = 0; i < this.state.deerStates.length; i++) {
+			if (this.state.deerStates[i]['state'] === true) {
+				this.setState({ hideFilter: false });
+				return;
+			}
+			if (i === this.state.deerStates.length - 1) {
+				this.setState({ hideFilter: true });
+				return;
+			}
+		}
 	}
 
 	static defaultProps = {
@@ -51,7 +61,11 @@ class Tracking extends Component {
 	render() {
 		return (
 			<div>
-				<NavBar deerStates={this.props.deerStates} handler={this.handler} />
+				<NavBar
+					deerStates={this.props.deerStates}
+					handler={this.handler}
+					hideFilter={this.state.hideFilter}
+				/>
 				<Map deerStates={this.props.deerStates} showAll={this.state.showAll} />
 			</div>
 		);
@@ -59,7 +73,7 @@ class Tracking extends Component {
 }
 
 Tracking.propTypes = {
-	deerStates: PropTypes.instanceOf(Map).isRequired,
+	deerStates: PropTypes.array.isRequired,
 };
 
 export default Tracking;

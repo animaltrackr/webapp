@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import GoogleMapReact from 'google-map-react';
-import { Icon } from 'antd';
-import PropTypes from 'prop-types';
+import Icon from 'antd/lib/icon';
 
 class Map extends Component {
 	render() {
@@ -15,23 +14,26 @@ class Map extends Component {
 						return { mapTypeId: 'satellite' };
 					}}
 				>
-					{this.props.deerStates.map((element, index) => {
-						if (element['state'] || this.props.showAll) {
-							return element['last_location'].map(pos => {
-								console.log(pos);
-								return (
-									<Icon
-										type="environment"
-										theme="filled"
-										style={{ color: element['colour'], fontSize: '18px' }}
-										lat={pos[0]}
-										lng={pos[1]}
-										text="My Marker"
-									/>
-								);
-							});
-						}
-					})}
+					{this.props.deerStates
+						? this.props.deerStates.map((element, index) => {
+								if (element['state'] || this.props.showAll) {
+									return element['last_location'].map(pos => {
+										console.log(pos);
+										return (
+											<Icon
+												type="environment"
+												theme="filled"
+												style={{ color: element['colour'], fontSize: '18px' }}
+												lat={pos[0]}
+												lng={pos[1]}
+												text="My Marker"
+											/>
+										);
+									});
+								}
+								return '';
+						  })
+						: ''}
 				</GoogleMapReact>
 			</div>
 		);
