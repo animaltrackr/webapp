@@ -87,7 +87,7 @@ jobs:
           command: |
             rm -rf build
             mv /tmp/workspace/build build
-      - run: echo "Placeholder for deploy to staging"
+      - run: npm run deploy
 
   deploy:
     <<: *container_config
