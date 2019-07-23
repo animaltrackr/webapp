@@ -97,6 +97,7 @@ jobs:
           command: |
             git config user.email "deploy.script@circleci.com"
             git config user.name "CircleCI"
+            mkdir ~/.ssh/ && echo -e "Host github.com\n\tStrictHostKeyChecking no\n" > ~/.ssh/config
       - run: npm run deploy-only
 
   deploy:
