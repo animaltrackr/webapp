@@ -84,6 +84,9 @@ jobs:
       - *restore_repo
       - *restore_node_modules
       - *attach_workspace
+      - add_ssh_keys:
+          fingerprints:
+            - "cb:ff:42:3d:d4:bb:ae:f8:d4:1f:3e:e2:1c:2e:6d:3c"
       - run:
           name: Restore build assets from workspace
           command: |
