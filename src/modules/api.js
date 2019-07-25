@@ -10,7 +10,7 @@ const METHOD = {
 // Log outgoing requests
 const logRequest = (method, url, body = undefined) => {
 	let message = `${method} Request made to ${url}`;
-	if (body) message += `\nWith body: ${body}`;
+	if (body) message += `\nWith body: ${JSON.stringify(body)}`;
 
 	console.info(message);
 };
@@ -18,7 +18,7 @@ const logRequest = (method, url, body = undefined) => {
 // Log incoming responses
 const logResponse = (method, url, body = undefined) => {
 	let message = `${method} Response from ${url}`;
-	if (body) message += `\nWith body: ${body}`;
+	if (body) message += `\nWith body: ${JSON.stringify(body)}`;
 
 	console.info(message);
 };
@@ -28,9 +28,9 @@ const myFetch = (url, options = {}) => {
 	const method = options.method || METHOD.GET;
 	logRequest(method, url, options);
 
-	fetch(url, {
+	return fetch(url, {
 		headers: {
-			'Content-Type': 'application/json',
+			// 'Content-Type': 'application/json',
 			...(options.headers || {}),
 		},
 		...options,
