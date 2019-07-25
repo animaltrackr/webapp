@@ -31,7 +31,7 @@ class NavBar extends React.Component {
 								);
 						  })
 						: null}
-					<Menu.Item onClick={this.props.enableAllDeer}>Show All</Menu.Item>}
+					<Menu.Item onClick={this.props.enableAllDeer}>Show All</Menu.Item>
 				</SubMenu>
 			</Menu>
 		);

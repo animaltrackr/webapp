@@ -55,12 +55,12 @@ class Tracking extends Component {
 				{}
 			);
 
-			// console.log(pointsMap);
+			console.log(pointsMap);
 
 			// Push points onto appropriate array (per tracker id)
 			points.forEach(point => pointsMap[point.tracker].push(point));
 
-			// console.log(pointsMap);
+			console.log(pointsMap);
 
 			const animals = trackers.map(tracker => ({
 				name: tracker.animal_id,
@@ -81,31 +81,36 @@ class Tracking extends Component {
 				// }]
 			}));
 
+			console.log(animals);
+
 			// Save to state
 			this.setState({ deerStates: animals, loading: false });
 		});
 	}
 
 	toggleDeer = e => {
-		this.setState(({ deerStates }) => ({
-			deerStates: deerStates.map(deer => ({
-				...deer,
-				visible: deer.id === e.key ? !deer.visible : deer.visible,
-			})),
-		}));
+		var temp = this.state.deerStates;
+		temp[e.key].visible = !temp[e.key].visible;
+		this.setState({ deerStates: temp });
 
-		if (
-			this.state.deerStates.filter(deer => deer.id == e.key)[0].tracks ==
-			undefined
-		)
-			this.getDeerTracks(e.key);
+		console.log(e.key);
+
+		// try {
+		// 	// try to access the tracks of the tracker so can populate if fails
+		// 	var tracks =this.state.deerStates.filter(deer => deer.id == e.key)[0].tracks;
+		//
+		// } catch {
+		//    this.getDeerTracks(e.key);
+		// }
 	};
 
 	enableAllDeer = () => {
+		this.setState({ showAll: !this.state.showAll });
+
 		this.setState(({ deerStates }) => ({
 			deerStates: deerStates.map(deer => ({
 				...deer,
-				visible: true,
+				visible: !this.state.showAll,
 			})),
 		}));
 	};
@@ -114,12 +119,12 @@ class Tracking extends Component {
 		return (
 			<div>
 				<NavBar
-					deerStates={this.props.deerStates}
+					deerStates={this.state.deerStates}
 					toggleDeer={this.toggleDeer}
 					enableAllDeer={this.enableAllDeer}
 					hideFilter={this.state.hideFilter}
 				/>
-				<Map deerStates={this.props.deerStates} showAll={this.state.showAll} />
+				<Map deerStates={this.state.deerStates} />
 			</div>
 		);
 	}
