@@ -89,9 +89,12 @@ class Tracking extends Component {
 	}
 
 	toggleDeer = e => {
-		var temp = this.state.deerStates;
-		temp[e.key].visible = !temp[e.key].visible;
-		this.setState({ deerStates: temp });
+		this.setState(({ deerStates }) => ({
+			deerStates: deerStates.map(deer => ({
+				...deer,
+				visible: deer.id === e.key ? !deer.visible : deer.visible,
+			})),
+		}));
 
 		console.log(e.key);
 

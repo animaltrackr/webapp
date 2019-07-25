@@ -23,8 +23,8 @@ class NavBar extends React.Component {
 					{this.props.deerStates
 						? this.props.deerStates.map((element, index) => {
 								return (
-									<Menu.ItemGroup key={index} title={element.name}>
-										<Menu.Item key={index} onClick={this.props.toggleDeer}>
+									<Menu.ItemGroup key={element.id} title={element.name}>
+										<Menu.Item key={element.id} onClick={this.props.toggleDeer}>
 											Show Tracks
 										</Menu.Item>
 									</Menu.ItemGroup>
