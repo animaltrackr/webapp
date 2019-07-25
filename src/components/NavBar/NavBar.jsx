@@ -1,8 +1,8 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import Menu from 'antd/lib/menu';
 import Typography from 'antd/lib/typography';
 
-import { Link } from 'react-router-dom';
 import './NavBar.css';
 
 const { Title } = Typography;
@@ -23,21 +23,15 @@ class NavBar extends React.Component {
 					{this.props.deerStates
 						? this.props.deerStates.map((element, index) => {
 								return (
-									<Menu.ItemGroup title={element['name']}>
-										<Menu.Item key={index} onClick={this.props.handler}>
+									<Menu.ItemGroup key={element.id} title={element.name}>
+										<Menu.Item key={element.id} onClick={this.props.toggleDeer}>
 											Show Tracks
 										</Menu.Item>
 									</Menu.ItemGroup>
 								);
 						  })
-						: ''}
-					<Menu.Item
-						key={this.props.deerStates ? this.props.deerStates.length + 1 : 1}
-						onClick={this.props.handler}
-					>
-						Show All
-					</Menu.Item>
-					}
+						: null}
+					<Menu.Item onClick={this.props.enableAllDeer}>Show All</Menu.Item>
 				</SubMenu>
 			</Menu>
 		);

@@ -16,16 +16,20 @@ class Map extends Component {
 				>
 					{this.props.deerStates
 						? this.props.deerStates.map((element, index) => {
-								if (element['state'] || this.props.showAll) {
-									return element['last_location'].map(pos => {
-										console.log(pos);
+								if (element['visible']) {
+									return element['tracks'].map(pos => {
+										if (pos['geo_lat'].startsWith('-')) {
+											var tmp = pos['geo_lat'];
+											pos['geo_lat'] = pos['geo_long'];
+											pos['geo_long'] = tmp;
+										}
 										return (
 											<Icon
 												type="environment"
 												theme="filled"
-												style={{ color: element['colour'], fontSize: '18px' }}
-												lat={pos[0]}
-												lng={pos[1]}
+												style={{ color: element['colour'], fontSize: '15px' }}
+												lat={pos['geo_lat']}
+												lng={pos['geo_long']}
 												text="My Marker"
 											/>
 										);
