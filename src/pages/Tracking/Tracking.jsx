@@ -1,40 +1,10 @@
 import React, { Component } from 'react';
+import { PropTypes } from 'prop-types';
 import Map from '../../components/Map/Map';
 import NavBar from '../../components/NavBar/NavBar';
-import { PropTypes } from 'prop-types';
+import * as api from '../../modules/api';
 
 class Tracking extends Component {
-	constructor(props) {
-		super(props);
-		this.handler = this.handler.bind(this);
-		this.state = {
-			deerStates: this.props.deerStates,
-			showAll: false,
-			hideFilter: true,
-		};
-	}
-
-	handler(e) {
-		if (e.key === this.props.deerStates.length + 1) {
-			this.setState({ showAll: !this.state.showAll });
-			return;
-		}
-		var temp = this.props.deerStates;
-		temp[e.key].state = !temp[e.key].state;
-		this.setState({ deerStates: temp });
-
-		for (var i = 0; i < this.state.deerStates.length; i++) {
-			if (this.state.deerStates[i]['state'] === true) {
-				this.setState({ hideFilter: false });
-				return;
-			}
-			if (i === this.state.deerStates.length - 1) {
-				this.setState({ hideFilter: true });
-				return;
-			}
-		}
-	}
-
 	static defaultProps = {
 		deerStates: [
 			{
@@ -58,12 +28,95 @@ class Tracking extends Component {
 		],
 	};
 
+	constructor(props) {
+		super(props);
+
+		this.state = {
+			deerStates: [],
+			loading: true,
+			showAll: false,
+			hideFilter: true,
+		};
+
+		const trackersPromise = api.readTrackers();
+		const pointsPromise = api.readPoints();
+
+		// Wait for both requests to return, then...
+		Promise.all([trackersPromise, pointsPromise]).then(values => {
+			const [trackers, points] = values;
+			// console.log('responded', values);
+			// console.log('responded', trackers, points);
+
+			// Build list of tracker IDs
+			const tracker_ids = trackers.map(tracker => tracker.id);
+			// Turn into object with id as key, and [] as value
+			const pointsMap = tracker_ids.reduce(
+				(acc, id) => ({ ...acc, [id]: [] }),
+				{}
+			);
+
+			// console.log(pointsMap);
+
+			// Push points onto appropriate array (per tracker id)
+			points.forEach(point => pointsMap[point.tracker].push(point));
+
+			// console.log(pointsMap);
+
+			const animals = trackers.map(tracker => ({
+				name: tracker.animal_id,
+				id: tracker.id,
+				status: tracker.status,
+				visible: false,
+				colour: 'red',
+				tracks: pointsMap[tracker.id],
+				// tracks ex:
+				// [{
+				// 	"id": "49b497aa-461f-40dc-9ba0-774d518f2354",
+				// 	"tracker": "bc6bf7b3-b173-4355-b5d2-ac1cdb2263ad",
+				// 	"timestamp": "2019-07-23T06:40:31.092000Z",
+				// 	"geo_lat": "48.463325",
+				// 	"geo_long": "-123.311751",
+				// 	"geo_error_radius": "1.0",
+				// 	"geo_method": "G"
+				// }]
+			}));
+
+			// Save to state
+			this.setState({ deerStates: animals, loading: false });
+		});
+	}
+
+	toggleDeer = e => {
+		this.setState(({ deerStates }) => ({
+			deerStates: deerStates.map(deer => ({
+				...deer,
+				visible: deer.id === e.key ? !deer.visible : deer.visible,
+			})),
+		}));
+
+		if (
+			this.state.deerStates.filter(deer => deer.id == e.key)[0].tracks ==
+			undefined
+		)
+			this.getDeerTracks(e.key);
+	};
+
+	enableAllDeer = () => {
+		this.setState(({ deerStates }) => ({
+			deerStates: deerStates.map(deer => ({
+				...deer,
+				visible: true,
+			})),
+		}));
+	};
+
 	render() {
 		return (
 			<div>
 				<NavBar
 					deerStates={this.props.deerStates}
-					handler={this.handler}
+					toggleDeer={this.toggleDeer}
+					enableAllDeer={this.enableAllDeer}
 					hideFilter={this.state.hideFilter}
 				/>
 				<Map deerStates={this.props.deerStates} showAll={this.state.showAll} />
