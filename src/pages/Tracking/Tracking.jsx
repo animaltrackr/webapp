@@ -31,11 +31,18 @@ class Tracking extends Component {
 	constructor(props) {
 		super(props);
 
+		this.handleDrawer = this.handleDrawer.bind(this);
+		this.handleDateFilter = this.handleDateFilter.bind(this);
+
 		this.state = {
 			deerStates: [],
 			loading: true,
 			showAll: false,
 			hideFilter: true,
+			timeRange: {
+				startDate: null,
+				endDate: null,
+			},
 		};
 
 		const trackersPromise = api.readTrackers();
@@ -88,15 +95,39 @@ class Tracking extends Component {
 		});
 	}
 
-	toggleDeer = e => {
-		this.setState(({ deerStates }) => ({
-			deerStates: deerStates.map(deer => ({
-				...deer,
-				visible: deer.id === e.key ? !deer.visible : deer.visible,
-			})),
-		}));
+	handleDrawer = e => {
+		console.log('herreeeeee');
+		this.setState({ drawerVisible: !this.state.drawerVisible });
+	};
 
-		console.log(e.key);
+	handleDateFilter(dates) {
+		if (dates != null) {
+			this.setState({
+				timeRange: {
+					startDate: new Date(dates['date-time-picker-start']),
+					endDate: new Date(dates['date-time-picker-end']),
+				},
+			});
+		} else {
+			this.setState({
+				timeRange: {
+					startDate: null,
+					endDate: null,
+				},
+			});
+		}
+	}
+
+	toggleDeer = e => {
+		this.setState(
+			({ deerStates }) => ({
+				deerStates: deerStates.map(deer => ({
+					...deer,
+					visible: deer.id === e.key ? !deer.visible : deer.visible,
+				})),
+			}),
+			() => this.filterButtonState()
+		);
 
 		// try {
 		// 	// try to access the tracks of the tracker so can populate if fails
@@ -110,13 +141,37 @@ class Tracking extends Component {
 	enableAllDeer = () => {
 		this.setState({ showAll: !this.state.showAll });
 
-		this.setState(({ deerStates }) => ({
-			deerStates: deerStates.map(deer => ({
-				...deer,
-				visible: !this.state.showAll,
-			})),
-		}));
+		this.setState(
+			({ deerStates }) => ({
+				deerStates: deerStates.map(deer => ({
+					...deer,
+					visible: !this.state.showAll,
+				})),
+			}),
+			() => this.filterButtonState()
+		);
 	};
+
+	filterButtonState(showAll = this.state.showAll) {
+		console.log('toggling filter button state');
+		console.log(this.state.deerStates);
+
+		var set = false;
+		this.state.deerStates.map(element => {
+			if (element['visible']) {
+				console.log('there is an active deer, showing filter button');
+				this.setState({ hideFilter: false });
+				set = true;
+				return 0;
+			}
+			return 0;
+		});
+
+		if (!set) {
+			this.setState({ hideFilter: true });
+		}
+		console.log(this.state.hideFilter);
+	}
 
 	render() {
 		return (
@@ -125,9 +180,17 @@ class Tracking extends Component {
 					deerStates={this.state.deerStates}
 					toggleDeer={this.toggleDeer}
 					enableAllDeer={this.enableAllDeer}
+					showAll={this.state.showAll}
 					hideFilter={this.state.hideFilter}
+					/* props for the drawer (filter logic) */
+					drawerVisible={this.state.drawerVisible}
+					handleDrawer={this.handleDrawer}
+					handleDateFilter={this.handleDateFilter}
 				/>
-				<Map deerStates={this.state.deerStates} />
+				<Map
+					deerStates={this.state.deerStates}
+					timeRange={this.state.timeRange}
+				/>
 			</div>
 		);
 	}
