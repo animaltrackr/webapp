@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import Menu from 'antd/lib/menu';
 import Typography from 'antd/lib/typography';
 
-import './NavBar.css';
+import './NavBar.less';
 
 const { Title } = Typography;
 const { SubMenu } = Menu;
@@ -16,6 +16,7 @@ class NavBar extends React.Component {
 					<Title level={3}>
 						<Link to="/">animaltrckr</Link>
 					</Title>
+					<Title>test</Title>
 				</Menu.Item>
 				<SubMenu
 					title={<span className="submenu-title-wrapper">Active Collars</span>}
