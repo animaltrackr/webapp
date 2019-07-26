@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import Menu from 'antd/lib/menu';
 import Typography from 'antd/lib/typography';
 import Button from 'antd/lib/button';
+import FilterDrawer from '../FilterDrawer/FilterDrawer';
 
 import './NavBar.less';
 
@@ -12,7 +13,7 @@ const { SubMenu } = Menu;
 class NavBar extends React.Component {
 	render() {
 		return (
-			<div>
+			<React.Fragment>
 				<Menu mode="horizontal" className="menu-wrapper">
 					<Menu.Item>
 						<Title level={3}>
@@ -26,18 +27,18 @@ class NavBar extends React.Component {
 						}
 					>
 						{this.props.deerStates
-							? this.props.deerStates.map((element, index) => {
+							? this.props.deerStates.map((deer, index) => {
 									return (
 										<Menu.ItemGroup
-											key={element.id}
-											title={element.name}
-											className={'menu-group'}
+											key={deer.id}
+											title={deer.name}
+											className="menu-group"
 										>
 											<Menu.Item
-												key={element.id}
+												key={deer.id}
 												onClick={this.props.toggleDeer}
 												className={
-													element['visible'] ? 'tracker-selected' : 'tracker'
+													deer['visible'] ? 'tracker-selected' : 'tracker'
 												}
 											>
 												Show Tracks
@@ -54,21 +55,19 @@ class NavBar extends React.Component {
 						</Menu.Item>
 					</SubMenu>
 					<Button
-						className={'filter-button'}
-						onClick={this.props.handleDrawer}
+						onClick={this.props.toggleDrawer}
 						hidden={this.props.hideFilter}
 						style={{ left: '71%' }}
 					>
-						{console.log(this.props.hideFilter)}
 						Filter
 					</Button>
 				</Menu>
 				<FilterDrawer
 					drawerVisible={this.props.drawerVisible}
-					handleDrawer={this.props.handleDrawer}
+					toggleDrawer={this.props.toggleDrawer}
 					handleDateFilter={this.props.handleDateFilter}
 				/>
-			</div>
+			</React.Fragment>
 		);
 	}
 }

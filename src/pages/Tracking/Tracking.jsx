@@ -31,9 +31,6 @@ class Tracking extends Component {
 	constructor(props) {
 		super(props);
 
-		this.handleDrawer = this.handleDrawer.bind(this);
-		this.handleDateFilter = this.handleDateFilter.bind(this);
-
 		this.state = {
 			deerStates: [],
 			loading: true,
@@ -51,8 +48,6 @@ class Tracking extends Component {
 		// Wait for both requests to return, then...
 		Promise.all([trackersPromise, pointsPromise]).then(values => {
 			const [trackers, points] = values;
-			// console.log('responded', values);
-			// console.log('responded', trackers, points);
 
 			// Build list of tracker IDs
 			const tracker_ids = trackers.map(tracker => tracker.id);
@@ -62,12 +57,8 @@ class Tracking extends Component {
 				{}
 			);
 
-			console.log(pointsMap);
-
 			// Push points onto appropriate array (per tracker id)
 			points.forEach(point => pointsMap[point.tracker].push(point));
-
-			console.log(pointsMap);
 
 			const animals = trackers.map(tracker => ({
 				name: tracker.animal_id,
@@ -88,19 +79,16 @@ class Tracking extends Component {
 				// }]
 			}));
 
-			console.log(animals);
-
 			// Save to state
 			this.setState({ deerStates: animals, loading: false });
 		});
 	}
 
-	handleDrawer = e => {
-		console.log('herreeeeee');
+	toggleDrawer = e => {
 		this.setState({ drawerVisible: !this.state.drawerVisible });
 	};
 
-	handleDateFilter(dates) {
+	handleDateFilter = dates => {
 		if (dates != null) {
 			this.setState({
 				timeRange: {
@@ -116,7 +104,7 @@ class Tracking extends Component {
 				},
 			});
 		}
-	}
+	};
 
 	toggleDeer = e => {
 		this.setState(
@@ -152,14 +140,10 @@ class Tracking extends Component {
 		);
 	};
 
-	filterButtonState(showAll = this.state.showAll) {
-		console.log('toggling filter button state');
-		console.log(this.state.deerStates);
-
+	filterButtonState() {
 		var set = false;
 		this.state.deerStates.map(element => {
 			if (element['visible']) {
-				console.log('there is an active deer, showing filter button');
 				this.setState({ hideFilter: false });
 				set = true;
 				return 0;
@@ -170,7 +154,6 @@ class Tracking extends Component {
 		if (!set) {
 			this.setState({ hideFilter: true });
 		}
-		console.log(this.state.hideFilter);
 	}
 
 	render() {
@@ -184,7 +167,7 @@ class Tracking extends Component {
 					hideFilter={this.state.hideFilter}
 					/* props for the drawer (filter logic) */
 					drawerVisible={this.state.drawerVisible}
-					handleDrawer={this.handleDrawer}
+					toggleDrawer={this.toggleDrawer}
 					handleDateFilter={this.handleDateFilter}
 				/>
 				<Map
