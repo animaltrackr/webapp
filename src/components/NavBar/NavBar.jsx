@@ -14,9 +14,10 @@ class NavBar extends React.Component {
 			<Menu mode="horizontal">
 				<Menu.Item>
 					<Title level={3}>
-						<Link to="/">animaltrckr</Link>
+						<Link to="/" className="dark-until-hover">
+							animaltrckr
+						</Link>
 					</Title>
-					<Title>test</Title>
 				</Menu.Item>
 				<SubMenu
 					title={<span className="submenu-title-wrapper">Active Collars</span>}
