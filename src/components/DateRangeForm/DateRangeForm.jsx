@@ -4,6 +4,8 @@ import Form from 'antd/lib/form';
 import Button from 'antd/lib/button';
 import DatePicker from 'antd/lib/date-picker';
 
+import './DateRangeForm.less';
+
 class DateRangeForm extends React.Component {
 	handleSubmit = e => {
 		e.preventDefault();
@@ -51,31 +53,37 @@ class DateRangeForm extends React.Component {
 			],
 		};
 		return (
-			<Form {...formItemLayout} onSubmit={this.handleSubmit}>
-				<Form.Item label="Start Date">
-					{getFieldDecorator('date-time-picker-start', config)(
-						<DatePicker showTime format="YYYY-MM-DD HH:mm:ss" />
-					)}
-				</Form.Item>
-				<Form.Item label="End Date">
-					{getFieldDecorator('date-time-picker-end', config)(
-						<DatePicker showTime format="YYYY-MM-DD HH:mm:ss" />
-					)}
-				</Form.Item>
-				<Form.Item
-					wrapperCol={{
-						xs: { span: 24, offset: 0 },
-						sm: { span: 16, offset: 8 },
-					}}
-				>
-					<Button type="primary" htmlType="submit">
-						Submit
-					</Button>
-					<Button type="default" onClick={this.handleClear}>
-						Clear Filters
-					</Button>
-				</Form.Item>
-			</Form>
+			<div className={'form-wrapper'}>
+				<Form {...formItemLayout} onSubmit={this.handleSubmit}>
+					<div className={'date-wrapper'}>
+						<Form.Item label="Start Date">
+							{getFieldDecorator('date-time-picker-start', config)(
+								<DatePicker showTime format="YYYY-MM-DD HH:mm:ss" />
+							)}
+						</Form.Item>
+						<Form.Item label="End Date">
+							{getFieldDecorator('date-time-picker-end', config)(
+								<DatePicker showTime format="YYYY-MM-DD HH:mm:ss" />
+							)}
+						</Form.Item>
+					</div>
+					<div className={'button-wrapper'}>
+						<Form.Item
+							wrapperCol={{
+								xs: { span: 24, offset: 0 },
+								sm: { span: 16, offset: 8 },
+							}}
+						>
+							<Button type="primary" htmlType="submit">
+								Submit
+							</Button>
+							<Button type="default" onClick={this.handleClear}>
+								Clear Filters
+							</Button>
+						</Form.Item>
+					</div>
+				</Form>
+			</div>
 		);
 	}
 }
