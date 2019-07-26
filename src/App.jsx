@@ -7,7 +7,7 @@ import {
 	Redirect,
 } from 'react-router-dom';
 
-import './App.css';
+import './App.less';
 import MainPage from './pages';
 import Tracking from './pages/Tracking';
 import NotFoundPage from './pages/NotFoundPage';
