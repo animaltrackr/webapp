@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import { PropTypes } from 'prop-types';
+import * as api from '../../modules/api';
 import Map from '../../components/Map/Map';
 import NavBar from '../../components/NavBar/NavBar';
-import * as api from '../../modules/api';
+import ControlCard from '../../components/ControlCard/ControlCard';
 
 class Tracking extends Component {
 	static defaultProps = {
@@ -237,6 +238,7 @@ class Tracking extends Component {
 					deerStates={this.state.deerStates}
 					timeRange={this.state.timeRange}
 				/>
+				<ControlCard />
 			</div>
 		);
 	}
