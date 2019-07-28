@@ -15,8 +15,11 @@ class NavBar extends React.Component {
 		return (
 			<React.Fragment>
 				<Menu mode="horizontal" className="menu-wrapper">
-					<Menu.Item>
+					<Menu.Item className="title-item">
 						<Title level={3}>
+							<div className="img-wrapper">
+								<figure className="svg desc-img-logo logo" />
+							</div>
 							<Link to="/">animaltrackr</Link>
 						</Title>
 					</Menu.Item>
