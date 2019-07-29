@@ -6,41 +6,19 @@
 	}
 }
 
-.ant-menu.ant-menu-light.ant-menu-root.ant-menu-horizontal {
-	width: 100%;
-}
+.menu-wrapper {
+	display: flex;
+	direction: row;
+	justify-content: space-between;
+	align-items: center;
+	padding: 0px 10px;
+	height: 50px;
+	z-index: 10;
+	position: relative;
+	box-shadow: 0px 3px 5px -1px rgba(0, 0, 0, 0.2),
+		0px 5px 8px 0px rgba(0, 0, 0, 0.14), 0px 1px 14px 0px rgba(0, 0, 0, 0.12);
 
-.ant-menu-submenu.ant-menu-submenu-horizontal {
-	left: 30%;
-}
-
-.ant-menu-item.ant-menu-item-active {
-	background-color: rgba(169, 204, 98, 0.3);
-}
-
-.ant-menu-item:not(.ant-menu-horizontal).ant-menu-item-selected {
-	background-color: rgba(0, 151, 19, 0.3);
-}
-
-.submenu-wrapper .menu-group .tracker-selected {
-	background-color: #839461;
-	color: white;
-}
-
-.submenu-wrapper .tracker-selected {
-	background-color: #839461 !important;
-	color: white;
-}
-
-.submenu-wrapper .menu-group .tracker {
-	background-color: transparent !important;
-	color: rgba(0, 0, 0, 0.65);
-}
-
-.ant-menu:not(.ant-menu-horizontal) .tracker-selected .ant-menu-item-selected {
-	background-color: #839461;
-	color: white;
-}
-.ant-menu:not(.ant-menu-horizontal) .ant-menu-item-selected {
-	background-color: transparent;
+	& > * {
+		margin: 0px !important;
+	}
 }
