@@ -27,7 +27,8 @@ class FilterDrawer extends React.Component {
 					<Title level={4}>Edit Trackers</Title>
 					<EditTrackerForm
 						deerStates={this.props.deerStates}
-						updateName={this.props.updateName}
+						updateState={this.props.updateState}
+						finishedLoading={this.props.finishedLoading}
 					/>
 				</Drawer>
 			</div>

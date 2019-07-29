@@ -67,7 +67,8 @@ class NavBar extends React.Component {
 					drawerVisible={this.props.drawerVisible}
 					toggleDrawer={this.props.toggleDrawer}
 					handleDateFilter={this.props.handleDateFilter}
-					updateName={this.props.updateName}
+					updateState={this.props.updateState}
+					finishedLoading={this.props.finishedLoading}
 				/>
 			</React.Fragment>
 		);

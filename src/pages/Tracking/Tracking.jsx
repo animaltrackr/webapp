@@ -69,6 +69,11 @@ class Tracking extends Component {
 				tracks: pointsMap[tracker.id],
 				max_error_radius: tracker.max_error_radius,
 				location_method: tracker.location_method,
+				loading: {
+					status: false,
+					name: false,
+					colour: false,
+				},
 				// tracks ex:
 				// [{
 				// 	"id": "49b497aa-461f-40dc-9ba0-774d518f2354",
@@ -108,11 +113,31 @@ class Tracking extends Component {
 		}
 	};
 
-	updateName = (index, value) => {
+	updateState = (index, value, type) => {
 		this.setState(({ deerStates }) => ({
 			deerStates: deerStates.map((deer, i) => ({
 				...deer,
-				name: i == index ? value : deer.name,
+				name: i === index && type === 'name' ? value : deer.name,
+				status: i === index && type === 'status' ? value : deer.status,
+				loading: {
+					status: type === 'status' ? true : deer.loading.status,
+					name: type === 'name' ? true : deer.loading.name,
+					colour: type === 'colour' ? true : deer.loading.colour,
+				},
+			})),
+		}));
+	};
+
+	finishedLoading = (index, type) => {
+		console.log(type);
+		this.setState(({ deerStates }) => ({
+			deerStates: deerStates.map(deer => ({
+				...deer,
+				loading: {
+					status: type === 'status' ? false : deer.loading.status,
+					name: type === 'name' ? false : deer.loading.name,
+					colour: type === 'colour' ? false : deer.loading.colour,
+				},
 			})),
 		}));
 	};
@@ -180,7 +205,8 @@ class Tracking extends Component {
 					drawerVisible={this.state.drawerVisible}
 					toggleDrawer={this.toggleDrawer}
 					handleDateFilter={this.handleDateFilter}
-					updateName={this.updateName}
+					updateState={this.updateState}
+					finishedLoading={this.finishedLoading}
 				/>
 				<Map
 					deerStates={this.state.deerStates}
