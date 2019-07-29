@@ -73,8 +73,14 @@ class DateRangeForm extends React.Component {
 		);
 	}
 }
+
 const WrappedTimeRelatedForm = Form.create({ name: 'time_related_controls' })(
 	DateRangeForm
 );
+
+WrappedTimeRelatedForm.propTypes = {
+	handleDateFilter: propTypes.func.isRequired,
+	handleDrawer: propTypes.func.isRequired,
+};
 
 export default WrappedTimeRelatedForm;

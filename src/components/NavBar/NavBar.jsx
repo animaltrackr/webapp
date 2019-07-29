@@ -24,9 +24,8 @@ class NavBar extends React.Component {
 					</Button>
 				</div>
 				<FilterDrawer
-					deerStates={this.props.deerStates}
-					drawerVisible={this.props.drawerVisible}
 					toggleDrawer={this.props.toggleDrawer}
+					drawerVisible={this.props.drawerVisible}
 					handleDateFilter={this.props.handleDateFilter}
 					updateState={this.props.updateState}
 					finishedLoading={this.props.finishedLoading}

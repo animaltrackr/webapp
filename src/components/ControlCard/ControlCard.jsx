@@ -40,6 +40,8 @@ ControlCard.propTypes = {
 	deerStates: PropTypes.arrayOf(PropTypes.object).isRequired,
 	toggleDeer: PropTypes.func.isRequired,
 	toggleAllDeer: PropTypes.func.isRequired,
+	handleDateFilter: propTypes.func.isRequired,
+	handleDrawer: propTypes.func.isRequired,
 };
 
 export default ControlCard;
