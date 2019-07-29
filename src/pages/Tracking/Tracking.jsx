@@ -37,6 +37,7 @@ class Tracking extends Component {
 			loading: true,
 			showAll: false,
 			hideFilter: true,
+			dateFilterVisible: false,
 			timeRange: {
 				startDate: null,
 				endDate: null,
@@ -77,6 +78,12 @@ class Tracking extends Component {
 
 	toggleDrawer = () => {
 		this.setState(({ drawerVisible }) => ({ drawerVisible: !drawerVisible }));
+	};
+
+	toggleDateFilter = () => {
+		this.setState(({ dateFilterVisible }) => ({
+			dateFilterVisible: !dateFilterVisible,
+		}));
 	};
 
 	handleDateFilter = dates => {
@@ -185,7 +192,7 @@ class Tracking extends Component {
 		let set = false;
 		this.state.deerStates.map(element => {
 			if (element.visible) {
-				this.setState({ hideFilter: false });
+				this.setState({ hideFilter: false, showAll: true });
 				set = true;
 				return 0;
 			}
@@ -193,7 +200,7 @@ class Tracking extends Component {
 		});
 
 		if (!set) {
-			this.setState({ hideFilter: true });
+			this.setState({ hideFilter: true, showAll: false });
 		}
 	}
 
@@ -215,9 +222,11 @@ class Tracking extends Component {
 				/>
 				<ControlCard
 					deerStates={this.state.deerStates}
+					showAll={this.state.showAll}
+					dateFilterVisible={this.state.dateFilterVisible}
+					toggleDateFilter={this.toggleDateFilter}
 					toggleDeer={this.toggleDeer}
 					toggleAllDeer={this.toggleAllDeer}
-					toggleDrawer={this.toggleDrawer}
 					handleDateFilter={this.handleDateFilter}
 				/>
 			</div>
