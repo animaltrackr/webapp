@@ -1,9 +1,6 @@
 import React from 'react';
 
-import Form from 'antd/lib/form';
-import Button from 'antd/lib/button';
-import DatePicker from 'antd/lib/date-picker';
-
+import { Form, Button, DatePicker } from 'antd';
 import './DateRangeForm.less';
 
 class DateRangeForm extends React.Component {
@@ -37,50 +34,39 @@ class DateRangeForm extends React.Component {
 
 	render() {
 		const { getFieldDecorator } = this.props.form;
-		const formItemLayout = {
-			labelCol: {
-				xs: { span: 24 },
-				sm: { span: 8 },
-			},
-			wrapperCol: {
-				xs: { span: 24 },
-				sm: { span: 16 },
-			},
-		};
-		const config = {
-			rules: [
-				{ type: 'object', required: true, message: 'Please select date!' },
-			],
-		};
+
 		return (
-			<div className={'form-wrapper'}>
-				<Form {...formItemLayout} onSubmit={this.handleSubmit}>
-					<div className={'date-wrapper'}>
-						<Form.Item label="Start Date">
-							{getFieldDecorator('date-time-picker-start', config)(
-								<DatePicker showTime format="YYYY-MM-DD HH:mm:ss" />
+			<div className="form-wrapper">
+				<Form onSubmit={this.handleSubmit}>
+					<div className="date-wrapper">
+						<Form.Item>
+							{getFieldDecorator('date-time-picker-start', {})(
+								<DatePicker
+									className="date-picker"
+									placeholder="Start Date"
+									showTime
+									format="YYYY-MM-DD HH:mm:ss"
+								/>
 							)}
 						</Form.Item>
-						<Form.Item label="End Date">
-							{getFieldDecorator('date-time-picker-end', config)(
-								<DatePicker showTime format="YYYY-MM-DD HH:mm:ss" />
+						<Form.Item>
+							{getFieldDecorator('date-time-picker-end', {})(
+								<DatePicker
+									className="date-picker"
+									placeholder="End Date"
+									showTime
+									format="YYYY-MM-DD HH:mm:ss"
+								/>
 							)}
 						</Form.Item>
 					</div>
-					<div className={'button-wrapper'}>
-						<Form.Item
-							wrapperCol={{
-								xs: { span: 24, offset: 0 },
-								sm: { span: 16, offset: 8 },
-							}}
-						>
-							<Button type="primary" htmlType="submit">
-								Submit
-							</Button>
-							<Button type="default" onClick={this.handleClear}>
-								Clear Filters
-							</Button>
-						</Form.Item>
+					<div className="button-wrapper">
+						<Button type="primary" htmlType="submit">
+							Save
+						</Button>
+						<Button type="default" onClick={this.handleClear}>
+							Clear Filters
+						</Button>
 					</div>
 				</Form>
 			</div>
