@@ -67,6 +67,13 @@ class Tracking extends Component {
 				visible: false,
 				colour: 'red',
 				tracks: pointsMap[tracker.id],
+				max_error_radius: tracker.max_error_radius,
+				location_method: tracker.location_method,
+				loading: {
+					status: false,
+					name: false,
+					colour: false,
+				},
 				// tracks ex:
 				// [{
 				// 	"id": "49b497aa-461f-40dc-9ba0-774d518f2354",
@@ -104,6 +111,60 @@ class Tracking extends Component {
 				},
 			});
 		}
+	};
+
+	updateState = (selectedDeer, value, type) => {
+		this.setState(({ deerStates }) => ({
+			deerStates: deerStates.map((deer, i) => ({
+				...deer,
+				name:
+					selectedDeer.id === deer.id && type === 'name' ? value : deer.name,
+				status:
+					selectedDeer.id === deer.id && type === 'status'
+						? value
+						: deer.status,
+				colour:
+					selectedDeer.id === deer.id && type === 'colour'
+						? value
+						: deer.colour,
+				loading: {
+					status:
+						selectedDeer.id === deer.id && type === 'status'
+							? true
+							: deer.loading.status,
+					name:
+						selectedDeer.id === deer.id && type === 'name'
+							? true
+							: deer.loading.name,
+					colour:
+						selectedDeer.id === deer.id && type === 'colour'
+							? true
+							: deer.loading.colour,
+				},
+			})),
+		}));
+	};
+
+	finishedLoading = (selectedDeer, type) => {
+		this.setState(({ deerStates }) => ({
+			deerStates: deerStates.map((deer, i) => ({
+				...deer,
+				loading: {
+					status:
+						selectedDeer.id === deer.id && type === 'status'
+							? false
+							: deer.loading.status,
+					name:
+						selectedDeer.id === deer.id && type === 'name'
+							? false
+							: deer.loading.name,
+					colour:
+						selectedDeer.id === deer.id && type === 'colour'
+							? false
+							: deer.loading.colour,
+				},
+			})),
+		}));
 	};
 
 	toggleDeer = e => {
@@ -169,6 +230,8 @@ class Tracking extends Component {
 					drawerVisible={this.state.drawerVisible}
 					toggleDrawer={this.toggleDrawer}
 					handleDateFilter={this.handleDateFilter}
+					updateState={this.updateState}
+					finishedLoading={this.finishedLoading}
 				/>
 				<Map
 					deerStates={this.state.deerStates}

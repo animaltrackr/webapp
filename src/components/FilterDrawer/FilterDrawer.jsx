@@ -2,23 +2,24 @@ import React from 'react';
 
 import Drawer from 'antd/lib/drawer';
 
-import DateRangeForm from '../DateRangeForm/DateRangeForm';
+import EditTrackerForm from '../EditTrackerForm/EditTrackerForm';
 
 class FilterDrawer extends React.Component {
 	render() {
 		return (
 			<div>
 				<Drawer
-					title="Filter Results by Time Range"
+					title="Edit Tracker Properties"
 					placement="right"
 					closable={false}
 					onClose={this.props.toggleDrawer}
 					visible={this.props.drawerVisible}
-					width={'350px'}
+					width={'300px'}
 				>
-					<DateRangeForm
-						handleDateFilter={this.props.handleDateFilter}
-						handleDrawer={this.props.toggleDrawer}
+					<EditTrackerForm
+						deerStates={this.props.deerStates}
+						updateState={this.props.updateState}
+						finishedLoading={this.props.finishedLoading}
 					/>
 				</Drawer>
 			</div>
