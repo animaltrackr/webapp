@@ -47,7 +47,7 @@ class NavBar extends React.Component {
 							  })
 							: null}
 						<Menu.Item
-							onClick={this.props.enableAllDeer}
+							onClick={this.props.toggleAllDeer}
 							className={this.props.showAll ? 'tracker-selected' : 'tracker'}
 						>
 							Show All

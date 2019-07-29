@@ -173,7 +173,7 @@ class Tracking extends Component {
 			({ deerStates }) => ({
 				deerStates: deerStates.map(deer => ({
 					...deer,
-					visible: deer.id === e.key ? !deer.visible : deer.visible,
+					visible: deer.id === id ? !deer.visible : deer.visible,
 				})),
 			}),
 			() => this.filterButtonState()
@@ -188,14 +188,14 @@ class Tracking extends Component {
 		// }
 	};
 
-	enableAllDeer = () => {
-		this.setState({ showAll: !this.state.showAll });
+	toggleAllDeer = () => {
+		this.setState(prevState => ({ showAll: !prevState.showAll }));
 
 		this.setState(
-			({ deerStates }) => ({
+			({ deerStates, showAll }) => ({
 				deerStates: deerStates.map(deer => ({
 					...deer,
-					visible: !this.state.showAll,
+					visible: showAll,
 				})),
 			}),
 			() => this.filterButtonState()
@@ -224,7 +224,7 @@ class Tracking extends Component {
 				<NavBar
 					deerStates={this.state.deerStates}
 					toggleDeer={this.toggleDeer}
-					enableAllDeer={this.enableAllDeer}
+					toggleAllDeer={this.toggleAllDeer}
 					showAll={this.state.showAll}
 					hideFilter={this.state.hideFilter}
 					/* props for the drawer (filter logic) */
@@ -241,6 +241,7 @@ class Tracking extends Component {
 				<ControlCard
 					deerStates={this.state.deerStates}
 					toggleDeer={this.toggleDeer}
+					toggleAllDeer={this.toggleAllDeer}
 				/>
 			</div>
 		);

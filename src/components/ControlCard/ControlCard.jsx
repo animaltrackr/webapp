@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Menu, Typography, Card } from 'antd';
+import { Typography, Card, Button, Form } from 'antd';
 import './ControlCard.less';
 
 import DeerSelector from '../DeerSelector';
@@ -14,10 +14,15 @@ class ControlCard extends Component {
 			<Card className="control-card">
 				<div className="control-section">
 					<Text strong>Selected Deer</Text>
-					<DeerSelector
-						deerStates={this.props.deerStates}
-						toggleDeer={this.props.toggleDeer}
-					/>
+					<Form.Item>
+						<DeerSelector
+							deerStates={this.props.deerStates}
+							toggleDeer={this.props.toggleDeer}
+						/>
+					</Form.Item>
+					<Button type="text" onClick={this.props.toggleAllDeer}>
+						Toggle All
+					</Button>
 				</div>
 				<div className="control-section">
 					<Text strong>Filter Deer</Text>
@@ -34,6 +39,7 @@ class ControlCard extends Component {
 ControlCard.propTypes = {
 	deerStates: PropTypes.arrayOf(PropTypes.object).isRequired,
 	toggleDeer: PropTypes.func.isRequired,
+	toggleAllDeer: PropTypes.func.isRequired,
 };
 
 export default ControlCard;
