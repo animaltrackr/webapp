@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import moment from 'moment';
 
 import { Form, Button, DatePicker } from 'antd';
 import './DateRangeForm.less';
@@ -16,11 +17,11 @@ class DateRangeForm extends React.Component {
 			console.log(fieldsValue);
 			// Should format date value before submit.
 			const startDate = fieldsValue['date-time-picker-start']
-				? Date(fieldsValue['date-time-picker-start'])
-				: Date(1990);
+				? fieldsValue['date-time-picker-start']
+				: moment(1990);
 			const endDate = fieldsValue['date-time-picker-end']
-				? Date(fieldsValue['date-time-picker-end'])
-				: Date();
+				? fieldsValue['date-time-picker-end']
+				: moment();
 
 			const values = {
 				...fieldsValue,
