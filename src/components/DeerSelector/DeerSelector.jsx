@@ -15,7 +15,7 @@ class DeerSelector extends Component {
 		return (
 			<Select
 				mode="multiple"
-				style={{ width: '100%' }}
+				style={{ flex: '1 1 0', overflow: 'hidden' }}
 				placeholder="Deer to Display"
 				value={selectedDeer}
 				onSelect={toggleDeer}
