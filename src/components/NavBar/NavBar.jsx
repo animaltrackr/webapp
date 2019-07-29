@@ -63,9 +63,11 @@ class NavBar extends React.Component {
 					</Button>
 				</Menu>
 				<FilterDrawer
+					deerStates={this.props.deerStates}
 					drawerVisible={this.props.drawerVisible}
 					toggleDrawer={this.props.toggleDrawer}
 					handleDateFilter={this.props.handleDateFilter}
+					updateName={this.props.updateName}
 				/>
 			</React.Fragment>
 		);

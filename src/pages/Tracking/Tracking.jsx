@@ -67,6 +67,8 @@ class Tracking extends Component {
 				visible: false,
 				colour: 'red',
 				tracks: pointsMap[tracker.id],
+				max_error_radius: tracker.max_error_radius,
+				location_method: tracker.location_method,
 				// tracks ex:
 				// [{
 				// 	"id": "49b497aa-461f-40dc-9ba0-774d518f2354",
@@ -104,6 +106,15 @@ class Tracking extends Component {
 				},
 			});
 		}
+	};
+
+	updateName = (index, value) => {
+		this.setState(({ deerStates }) => ({
+			deerStates: deerStates.map((deer, i) => ({
+				...deer,
+				name: i == index ? value : deer.name,
+			})),
+		}));
 	};
 
 	toggleDeer = e => {
@@ -169,6 +180,7 @@ class Tracking extends Component {
 					drawerVisible={this.state.drawerVisible}
 					toggleDrawer={this.toggleDrawer}
 					handleDateFilter={this.handleDateFilter}
+					updateName={this.updateName}
 				/>
 				<Map
 					deerStates={this.state.deerStates}
