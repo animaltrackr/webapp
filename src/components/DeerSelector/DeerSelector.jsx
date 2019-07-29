@@ -7,7 +7,7 @@ const { Option } = Select;
 
 class DeerSelector extends Component {
 	render() {
-		const { deerStates, toggleDeer } = this.props;
+		const { deerStates, toggleDeer, loading } = this.props;
 		const selectedDeer = deerStates
 			.filter(deer => deer.visible)
 			.map(deer => deer.id);
@@ -20,6 +20,7 @@ class DeerSelector extends Component {
 				value={selectedDeer}
 				onSelect={toggleDeer}
 				onDeselect={toggleDeer}
+				disabled={loading}
 			>
 				{this.props.deerStates
 					? this.props.deerStates.map(deer => {
@@ -34,6 +35,7 @@ class DeerSelector extends Component {
 DeerSelector.propTypes = {
 	deerStates: PropTypes.arrayOf(PropTypes.object).isRequired,
 	toggleDeer: PropTypes.func.isRequired,
+	loading: PropTypes.bool.isRequired,
 };
 
 export default DeerSelector;

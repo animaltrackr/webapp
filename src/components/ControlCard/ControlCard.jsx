@@ -15,6 +15,7 @@ class ControlCard extends Component {
 						<DeerSelector
 							deerStates={this.props.deerStates}
 							toggleDeer={this.props.toggleDeer}
+							loading={this.props.loading}
 						/>
 						<Icon
 							className="control-icon"
@@ -60,7 +61,7 @@ ControlCard.propTypes = {
 	toggleDeer: PropTypes.func.isRequired,
 	toggleAllDeer: PropTypes.func.isRequired,
 	handleDateFilter: PropTypes.func.isRequired,
-	handleDrawer: PropTypes.func.isRequired,
+	loading: PropTypes.bool.isRequired,
 };
 
 export default ControlCard;

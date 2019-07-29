@@ -23,5 +23,6 @@ module.exports = {
 			0,
 			{ extensions: ['.jsx', '.stories.js', '.test.js'] },
 		],
+		'react/destructuring-assignment': [0],
 	},
 };

@@ -1,34 +1,10 @@
 import React, { Component } from 'react';
-import { PropTypes } from 'prop-types';
-import * as api from '../../modules/api';
-import Map from '../../components/Map/Map';
-import NavBar from '../../components/NavBar/NavBar';
-import ControlCard from '../../components/ControlCard/ControlCard';
+import * as api from 'modules/api';
+import Map from 'components/Map';
+import NavBar from 'components/NavBar';
+import ControlCard from 'components/ControlCard';
 
 class Tracking extends Component {
-	static defaultProps = {
-		deerStates: [
-			{
-				name: 'Deer 1',
-				id: 1,
-				state: false,
-				last_location: [[48.471, -123.324], [48.475, -123.328]],
-				colour: 'blue',
-			},
-			{
-				name: 'Deer 2',
-				id: 2,
-				state: false,
-				last_location: [
-					[48.462, -123.313],
-					[48.465, -123.318],
-					[48.469, -123.312],
-				],
-				colour: 'white',
-			},
-		],
-	};
-
 	constructor(props) {
 		super(props);
 
@@ -38,6 +14,7 @@ class Tracking extends Component {
 			showAll: false,
 			hideFilter: true,
 			dateFilterVisible: false,
+			drawerVisible: false,
 			timeRange: {
 				startDate: null,
 				endDate: null,
@@ -110,7 +87,7 @@ class Tracking extends Component {
 
 	updateState = (selectedDeer, value, type) => {
 		this.setState(({ deerStates }) => ({
-			deerStates: deerStates.map((deer, i) => ({
+			deerStates: deerStates.map(deer => ({
 				...deer,
 				name:
 					selectedDeer.id === deer.id && type === 'name' ? value : deer.name,
@@ -142,7 +119,7 @@ class Tracking extends Component {
 
 	finishedLoading = (selectedDeer, type) => {
 		this.setState(({ deerStates }) => ({
-			deerStates: deerStates.map((deer, i) => ({
+			deerStates: deerStates.map(deer => ({
 				...deer,
 				loading: {
 					status:
@@ -228,14 +205,13 @@ class Tracking extends Component {
 					toggleDeer={this.toggleDeer}
 					toggleAllDeer={this.toggleAllDeer}
 					handleDateFilter={this.handleDateFilter}
+					loading={this.state.loading}
 				/>
 			</div>
 		);
 	}
 }
 
-Tracking.propTypes = {
-	deerStates: PropTypes.array.isRequired,
-};
+Tracking.propTypes = {};
 
 export default Tracking;
