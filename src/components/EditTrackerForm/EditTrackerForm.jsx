@@ -13,28 +13,32 @@ const { Option } = Select;
 
 class EditTrackerForm extends Component {
 	onColourChange = (index, value) => {
-		this.props.deerStates[index]['colour'] = value;
+		this.onStateChange(index, value, 'colour');
 	};
 
 	onStateChange = (index, value, type) => {
 		this.props.updateState(index, value, type);
 
-		const updatePromise = api.updateTracker(
-			this.props.deerStates[index]['id'],
-			{
-				id: this.props.deerStates[index]['id'],
-				animal_id:
-					type === 'name' ? value : this.props.deerStates[index]['name'],
-				status:
-					type === 'status' ? value : this.props.deerStates[index]['status'],
-				max_error_radius: this.props.deerStates[index]['max_error_radius'],
-				location_method: this.props.deerStates[index]['location_method'],
-				tracks: this.props.deerStates[index]['tracks'],
-			}
-		);
-		Promise.all([updatePromise]).then(values => {
+		if (type !== 'colour') {
+			const updatePromise = api.updateTracker(
+				this.props.deerStates[index]['id'],
+				{
+					id: this.props.deerStates[index]['id'],
+					animal_id:
+						type === 'name' ? value : this.props.deerStates[index]['name'],
+					status:
+						type === 'status' ? value : this.props.deerStates[index]['status'],
+					max_error_radius: this.props.deerStates[index]['max_error_radius'],
+					location_method: this.props.deerStates[index]['location_method'],
+					tracks: this.props.deerStates[index]['tracks'],
+				}
+			);
+			Promise.all([updatePromise]).then(values => {
+				return this.props.finishedLoading(index, type);
+			});
+		} else {
 			this.props.finishedLoading(index, type);
-		});
+		}
 	};
 
 	onStatusChange = (index, value) => {
@@ -103,6 +107,7 @@ class EditTrackerForm extends Component {
 									</div>
 								);
 							}
+							return '';
 					  })
 					: ''}
 			</div>

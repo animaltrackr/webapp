@@ -114,11 +114,13 @@ class Tracking extends Component {
 	};
 
 	updateState = (index, value, type) => {
+		console.log(type);
 		this.setState(({ deerStates }) => ({
 			deerStates: deerStates.map((deer, i) => ({
 				...deer,
 				name: i === index && type === 'name' ? value : deer.name,
 				status: i === index && type === 'status' ? value : deer.status,
+				colour: i === index && type === 'colour' ? value : deer.colour,
 				loading: {
 					status: type === 'status' ? true : deer.loading.status,
 					name: type === 'name' ? true : deer.loading.name,
@@ -129,7 +131,6 @@ class Tracking extends Component {
 	};
 
 	finishedLoading = (index, type) => {
-		console.log(type);
 		this.setState(({ deerStates }) => ({
 			deerStates: deerStates.map(deer => ({
 				...deer,
