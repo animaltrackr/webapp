@@ -2,7 +2,7 @@ import React from 'react';
 
 import { Drawer } from 'antd';
 
-import EditTrackerForm from '../EditTrackerForm/EditTrackerForm';
+import EditTrackerForm from 'components/EditTrackerForm';
 
 class FilterDrawer extends React.Component {
 	render() {

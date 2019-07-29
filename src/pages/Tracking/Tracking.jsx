@@ -185,6 +185,7 @@ class Tracking extends Component {
 		return (
 			<div>
 				<NavBar
+					deerStates={this.state.deerStates}
 					hideFilter={this.state.hideFilter}
 					/* props for the drawer (filter logic) */
 					drawerVisible={this.state.drawerVisible}

@@ -9,6 +9,13 @@ import './NavBar.less';
 const { Title } = Typography;
 
 class NavBar extends React.Component {
+	static propTypes = {
+		drawerVisible: PropTypes.bool.isRequired,
+		hideFilter: PropTypes.bool.isRequired,
+		toggleDrawer: PropTypes.func.isRequired,
+		handleDateFilter: PropTypes.func.isRequired,
+	};
+
 	render() {
 		return (
 			<React.Fragment>
@@ -24,6 +31,7 @@ class NavBar extends React.Component {
 					</Button>
 				</div>
 				<FilterDrawer
+					deerStates={this.props.deerStates}
 					toggleDrawer={this.props.toggleDrawer}
 					drawerVisible={this.props.drawerVisible}
 					handleDateFilter={this.props.handleDateFilter}
@@ -34,12 +42,5 @@ class NavBar extends React.Component {
 		);
 	}
 }
-
-NavBar.propTypes = {
-	drawerVisible: PropTypes.bool.isRequired,
-	hideFilter: PropTypes.bool.isRequired,
-	toggleDrawer: PropTypes.func.isRequired,
-	handleDateFilter: PropTypes.func.isRequired,
-};
 
 export default NavBar;
