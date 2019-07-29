@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import GoogleMapReact from 'google-map-react';
-import Icon from 'antd/lib/icon';
+import { Icon } from 'antd';
 
 class Map extends Component {
 	renderIcons = () => {

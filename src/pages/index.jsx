@@ -1,10 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-import Layout from 'antd/lib/layout';
-import Row from 'antd/lib/row';
-import Col from 'antd/lib/col';
-import Button from 'antd/lib/button';
+import { Layout, Row, Col, Button } from 'antd';
 
 import './index.less';
 

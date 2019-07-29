@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Drawer from 'antd/lib/drawer';
+import { Drawer } from 'antd';
 
 import EditTrackerForm from '../EditTrackerForm/EditTrackerForm';
 
@@ -14,7 +14,7 @@ class FilterDrawer extends React.Component {
 					closable={false}
 					onClose={this.props.toggleDrawer}
 					visible={this.props.drawerVisible}
-					width={'300px'}
+					width="300px"
 				>
 					<EditTrackerForm
 						deerStates={this.props.deerStates}
