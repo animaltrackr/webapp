@@ -34,19 +34,21 @@ class ControlCard extends Component {
 						/>
 					</div>
 				</div>
-				{this.props.dateFilterVisible ? (
-					<div className="secondary-section">
-						<Card
-							className="secondary-card"
-							bodyStyle={{ padding: '5px', margin: '5px' }}
-						>
-							<DateRangeForm
-								handleDateFilter={this.props.handleDateFilter}
-								handleDrawer={this.props.toggleDateFilter}
-							/>
-						</Card>
-					</div>
-				) : null}
+				<div
+					className={`secondary-section${
+						this.props.dateFilterVisible ? '' : '-hidden'
+					}`}
+				>
+					<Card
+						className="secondary-card"
+						bodyStyle={{ padding: '5px', margin: '5px' }}
+					>
+						<DateRangeForm
+							handleDateFilter={this.props.handleDateFilter}
+							handleDrawer={this.props.toggleDateFilter}
+						/>
+					</Card>
+				</div>
 			</Card>
 		);
 	}
