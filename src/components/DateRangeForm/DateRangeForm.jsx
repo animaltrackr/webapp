@@ -79,8 +79,8 @@ const WrappedTimeRelatedForm = Form.create({ name: 'time_related_controls' })(
 );
 
 WrappedTimeRelatedForm.propTypes = {
-	handleDateFilter: propTypes.func.isRequired,
-	handleDrawer: propTypes.func.isRequired,
+	handleDateFilter: PropTypes.func.isRequired,
+	handleDrawer: PropTypes.func.isRequired,
 };
 
 export default WrappedTimeRelatedForm;
