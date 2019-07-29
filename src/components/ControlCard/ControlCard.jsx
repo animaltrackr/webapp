@@ -11,7 +11,7 @@ const { Text } = Typography;
 class ControlCard extends Component {
 	render() {
 		return (
-			<Card className="control-card">
+			<Card className="control-card" bodyStyle={{ padding: '10px' }}>
 				<div className="control-section">
 					<Text strong>Selected Deer</Text>
 					<Form.Item>
