@@ -1,12 +1,10 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Typography, Card, Button, Form, Icon } from 'antd';
+import { Card, Icon } from 'antd';
 import './ControlCard.less';
 
 import DeerSelector from '../DeerSelector';
 import DateRangeForm from '../DateRangeForm';
-
-const { Text, Title } = Typography;
 
 class ControlCard extends Component {
 	render() {

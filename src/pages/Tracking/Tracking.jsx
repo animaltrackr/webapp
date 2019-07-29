@@ -162,7 +162,7 @@ class Tracking extends Component {
 		}));
 	};
 
-	toggleDeer = e => {
+	toggleDeer = id => {
 		this.setState(
 			({ deerStates }) => ({
 				deerStates: deerStates.map(deer => ({
