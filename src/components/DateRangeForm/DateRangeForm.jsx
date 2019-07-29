@@ -10,7 +10,7 @@ class DateRangeForm extends React.Component {
 
 		this.props.form.validateFields((err, fieldsValue) => {
 			if (err) {
-				console.log('error????');
+				console.log('error????', err);
 				return;
 			}
 			// Should format date value before submit.

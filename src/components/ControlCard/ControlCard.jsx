@@ -11,7 +11,7 @@ const { Text } = Typography;
 class ControlCard extends Component {
 	render() {
 		return (
-			<Card className="control-card" bodyStyle={{ padding: '10px' }}>
+			<Card className="control-card" bodyStyle={{ padding: '0px' }}>
 				<div className="control-section">
 					<Text strong>Selected Deer</Text>
 					<Form.Item>
@@ -24,7 +24,7 @@ class ControlCard extends Component {
 						Toggle All
 					</Button>
 				</div>
-				<div className="control-section">
+				<div className="secondary-section">
 					<Text strong>Filter Deer</Text>
 					<DateRangeForm
 						handleDateFilter={this.props.handleDateFilter}
