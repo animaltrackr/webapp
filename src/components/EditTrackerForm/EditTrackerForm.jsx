@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import Spin from 'antd/lib/spin';
 import Icon from 'antd/lib/icon';
 import Typography from 'antd/lib/typography';
+import Divider from 'antd/lib/divider';
+
 import { PropTypes } from 'prop-types';
 
 import * as api from '../../modules/api';
@@ -11,59 +13,54 @@ import StatusOptions from '../StatusOptions/StatusOptions';
 
 import './EditTrackerForm.less';
 
-const { Paragraph } = Typography;
+const { Text } = Typography;
 
 class EditTrackerForm extends Component {
-	onStateChange = (index, value, type) => {
-		this.props.updateState(index, value, type);
+	onStateChange = (deer, value, type) => {
+		this.props.updateState(deer, value, type);
 
 		if (type !== 'colour') {
-			const updatePromise = api.updateTracker(
-				this.props.deerStates[index]['id'],
-				{
-					id: this.props.deerStates[index]['id'],
-					animal_id:
-						type === 'name' ? value : this.props.deerStates[index]['name'],
-					status:
-						type === 'status' ? value : this.props.deerStates[index]['status'],
-					max_error_radius: this.props.deerStates[index]['max_error_radius'],
-					location_method: this.props.deerStates[index]['location_method'],
-					tracks: this.props.deerStates[index]['tracks'],
-				}
-			);
+			const updatePromise = api.updateTracker(deer.id, {
+				id: deer.id,
+				animal_id: type === 'name' ? value : deer.id,
+				status: type === 'status' ? value : deer.status,
+				max_error_radius: deer.max_error_radius,
+				location_method: deer.location_method,
+				tracks: deer.tracks,
+			});
 			Promise.all([updatePromise]).then(values => {
-				return this.props.finishedLoading(index, type);
+				return this.props.finishedLoading(deer, type);
 			});
 		} else {
-			this.props.finishedLoading(index, type);
+			this.props.finishedLoading(deer, type);
 		}
 	};
 
-	onNameChange = (index, value) => {
-		this.onStateChange(index, value, 'name');
+	onNameChange = (deer, value) => {
+		this.onStateChange(deer, value, 'name');
 	};
 
 	render() {
-		const antIcon = <Icon type="loading" style={{ fontSize: 20 }} spin />;
+		const loadingIcon = <Icon type="loading" style={{ fontSize: 20 }} spin />;
 
 		return (
 			<div>
 				{this.props.deerStates
 					? this.props.deerStates.map((deer, index) => {
-							if (deer['visible']) {
+							if (deer.visible) {
 								return (
 									<div className="tracker-form">
 										<div className="option-name">
-											<Paragraph
+											<Text
 												editable={{
-													onChange: this.onNameChange.bind(this, index),
+													onChange: this.onNameChange.bind(this, deer),
 												}}
 												strong={true}
 											>
-												{deer['name']}
-											</Paragraph>
+												{deer.name}
+											</Text>
 											<div className="spin-icon" hidden={!deer.loading.name}>
-												<Spin indicator={antIcon} />
+												<Spin indicator={loadingIcon} />
 											</div>
 										</div>
 										<ColourOptions
@@ -76,6 +73,7 @@ class EditTrackerForm extends Component {
 											deer={deer}
 											index={index}
 										/>
+										<Divider />
 									</div>
 								);
 							}

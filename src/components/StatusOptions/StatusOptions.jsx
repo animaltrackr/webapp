@@ -6,24 +6,23 @@ import Icon from 'antd/lib/icon';
 
 import './StatusOptions.less';
 
-const { Paragraph } = Typography;
+const { Text } = Typography;
 const { Option } = Select;
 
 class StatusOptions extends Component {
-	onStatusChange = (index, value) => {
-		this.props.onStateChange(index, value, 'status');
+	onStatusChange = (deer, value) => {
+		this.props.onStateChange(deer, value, 'status');
 	};
 
 	render() {
-		const antIcon = <Icon type="loading" style={{ fontSize: 20 }} spin />;
+		const loadingIcon = <Icon type="loading" style={{ fontSize: 20 }} spin />;
 
 		return (
 			<div className="option">
-				<Paragraph>Status: </Paragraph>
+				<Text className="option-title">Status:</Text>
 				<Select
-					className="select"
-					defaultValue={this.props.deer ? this.props.deer['status'] : ''}
-					onChange={this.onStatusChange.bind(this, this.props.index)}
+					defaultValue={this.props.deer ? this.props.deer.status : ''}
+					onChange={this.onStatusChange.bind(this, this.props.deer)}
 				>
 					<Option value={'A'}>Active</Option>
 					<Option value={'D'}>Disabled</Option>
@@ -35,7 +34,7 @@ class StatusOptions extends Component {
 					className="spin-icon"
 					hidden={this.props.deer ? !this.props.deer.loading.status : true}
 				>
-					<Spin indicator={antIcon} />
+					<Spin indicator={loadingIcon} />
 				</div>
 			</div>
 		);

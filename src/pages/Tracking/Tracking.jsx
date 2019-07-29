@@ -113,32 +113,55 @@ class Tracking extends Component {
 		}
 	};
 
-	updateState = (index, value, type) => {
+	updateState = (selectedDeer, value, type) => {
 		this.setState(({ deerStates }) => ({
 			deerStates: deerStates.map((deer, i) => ({
 				...deer,
-				name: i === index && type === 'name' ? value : deer.name,
-				status: i === index && type === 'status' ? value : deer.status,
-				colour: i === index && type === 'colour' ? value : deer.colour,
+				name:
+					selectedDeer.id === deer.id && type === 'name' ? value : deer.name,
+				status:
+					selectedDeer.id === deer.id && type === 'status'
+						? value
+						: deer.status,
+				colour:
+					selectedDeer.id === deer.id && type === 'colour'
+						? value
+						: deer.colour,
 				loading: {
-					status: i === index && type === 'status' ? true : deer.loading.status,
-					name: i === index && type === 'name' ? true : deer.loading.name,
-					colour: i === index && type === 'colour' ? true : deer.loading.colour,
+					status:
+						selectedDeer.id === deer.id && type === 'status'
+							? true
+							: deer.loading.status,
+					name:
+						selectedDeer.id === deer.id && type === 'name'
+							? true
+							: deer.loading.name,
+					colour:
+						selectedDeer.id === deer.id && type === 'colour'
+							? true
+							: deer.loading.colour,
 				},
 			})),
 		}));
 	};
 
-	finishedLoading = (index, type) => {
+	finishedLoading = (selectedDeer, type) => {
 		this.setState(({ deerStates }) => ({
 			deerStates: deerStates.map((deer, i) => ({
 				...deer,
 				loading: {
 					status:
-						i === index && type === 'status' ? false : deer.loading.status,
-					name: i === index && type === 'name' ? false : deer.loading.name,
+						selectedDeer.id === deer.id && type === 'status'
+							? false
+							: deer.loading.status,
+					name:
+						selectedDeer.id === deer.id && type === 'name'
+							? false
+							: deer.loading.name,
 					colour:
-						i === index && type === 'colour' ? false : deer.loading.colour,
+						selectedDeer.id === deer.id && type === 'colour'
+							? false
+							: deer.loading.colour,
 				},
 			})),
 		}));

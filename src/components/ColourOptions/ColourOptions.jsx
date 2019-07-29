@@ -6,35 +6,37 @@ import Icon from 'antd/lib/icon';
 
 import './ColourOptions.less';
 
-const { Paragraph } = Typography;
+const { Text } = Typography;
 const { Option } = Select;
 
 class ColourOptions extends Component {
-	onColourChange = (index, value) => {
-		this.props.onStateChange(index, value, 'colour');
+	onColourChange = (deer, value) => {
+		this.props.onStateChange(deer, value, 'colour');
 	};
 
 	render() {
-		const antIcon = <Icon type="loading" style={{ fontSize: 20 }} spin />;
+		const loadingIcon = <Icon type="loading" style={{ fontSize: 20 }} spin />;
 
 		return (
 			<div className="option">
-				<Paragraph>Colour: </Paragraph>
+				<Text className="option-title">Colour:</Text>
 				<Select
-					className="select"
-					defaultValue={this.props.deer ? this.props.deer['colour'] : ''}
-					onChange={this.onColourChange.bind(this, this.props.index)}
+					defaultValue={this.props.deer ? this.props.deer.colour : ''}
+					onChange={this.onColourChange.bind(this, this.props.deer)}
 				>
-					<Option value={'red'}>red</Option>
 					<Option value={'blue'}>blue</Option>
-					<Option value={'white'}>white</Option>
+					<Option value={'gray'}>gray</Option>
 					<Option value={'green'}>green</Option>
+					<Option value={'purple'}>purple</Option>
+					<Option value={'red'}>red</Option>
+					<Option value={'white'}>white</Option>
+					<Option value={'yellow'}>yellow</Option>
 				</Select>
 				<div
 					className="spin-icon"
 					hidden={this.props.deer ? !this.props.deer.loading.colour : true}
 				>
-					<Spin indicator={antIcon} />
+					<Spin indicator={loadingIcon} />
 				</div>
 			</div>
 		);

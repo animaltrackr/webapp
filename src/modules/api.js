@@ -61,7 +61,6 @@ export const readTracker = trackerId => {
 };
 
 export const updateTracker = (trackerId, data) => {
-	console.log(data);
 	const url = `${SERVER_URL}/animal/trackers/${trackerId}`;
 	return myFetch(url, {
 		method: METHOD.PUT,

@@ -1,13 +1,8 @@
 import React from 'react';
 
 import Drawer from 'antd/lib/drawer';
-import Typography from 'antd/lib/typography';
 
-import DateRangeForm from '../DateRangeForm/DateRangeForm';
 import EditTrackerForm from '../EditTrackerForm/EditTrackerForm';
-import AddTrackerForm from '../AddTrackerForm/AddTrackerForm';
-
-const { Title } = Typography;
 
 class FilterDrawer extends React.Component {
 	render() {
@@ -21,18 +16,11 @@ class FilterDrawer extends React.Component {
 					visible={this.props.drawerVisible}
 					width={'300px'}
 				>
-					<DateRangeForm
-						handleDateFilter={this.props.handleDateFilter}
-						handleDrawer={this.props.toggleDrawer}
-					/>
-					<Title level={4}>Edit Trackers</Title>
 					<EditTrackerForm
 						deerStates={this.props.deerStates}
 						updateState={this.props.updateState}
 						finishedLoading={this.props.finishedLoading}
 					/>
-					<Title level={4}>Add Tracker</Title>
-					<AddTrackerForm />
 				</Drawer>
 			</div>
 		);
