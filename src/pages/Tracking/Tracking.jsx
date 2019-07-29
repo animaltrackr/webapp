@@ -67,7 +67,7 @@ class Tracking extends Component {
 				status: tracker.status,
 				visible: false,
 				colour: 'red',
-				tracks: pointsMap[tracker.id],
+				points: tracker.points,
 				max_error_radius: tracker.max_error_radius,
 				location_method: tracker.location_method,
 				loading: {
@@ -203,9 +203,9 @@ class Tracking extends Component {
 	};
 
 	filterButtonState() {
-		var set = false;
+		let set = false;
 		this.state.deerStates.map(element => {
-			if (element['visible']) {
+			if (element.visible) {
 				this.setState({ hideFilter: false });
 				set = true;
 				return 0;
@@ -238,7 +238,10 @@ class Tracking extends Component {
 					deerStates={this.state.deerStates}
 					timeRange={this.state.timeRange}
 				/>
-				<ControlCard />
+				<ControlCard
+					deerStates={this.state.deerStates}
+					toggleDeer={this.toggleDeer}
+				/>
 			</div>
 		);
 	}

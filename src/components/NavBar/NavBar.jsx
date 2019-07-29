@@ -1,8 +1,7 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import Menu from 'antd/lib/menu';
-import Typography from 'antd/lib/typography';
-import Button from 'antd/lib/button';
+import { Menu, Typography, Button } from 'antd';
 import FilterDrawer from '../FilterDrawer/FilterDrawer';
 
 import './NavBar.less';
@@ -38,7 +37,7 @@ class NavBar extends React.Component {
 												key={deer.id}
 												onClick={this.props.toggleDeer}
 												className={
-													deer['visible'] ? 'tracker-selected' : 'tracker'
+													deer.visible ? 'tracker-selected' : 'tracker'
 												}
 											>
 												Show Tracks

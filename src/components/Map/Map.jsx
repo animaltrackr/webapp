@@ -4,19 +4,18 @@ import Icon from 'antd/lib/icon';
 
 class Map extends Component {
 	renderIcons = () => {
-		console.log('heeerrreee');
 		return this.props.deerStates
 			? this.props.deerStates.map((element, index) => {
 					if (element.visible) {
-						return element.tracks.map(pos => {
+						return element.points.map(pos => {
 							if (pos.geo_lat.startsWith('-')) {
-								var tmp = pos.geo_lat;
+								const tmp = pos.geo_lat;
 								pos.geo_lat = pos.geo_long;
 								pos.geo_long = tmp;
 							}
-							var pointTimestamp = new Date(pos.timestamp);
+							const pointTimestamp = new Date(pos.timestamp);
 							if (
-								!this.props.timeRange['startDate'] ||
+								!this.props.timeRange.startDate ||
 								(pointTimestamp >= this.props.timeRange.startDate &&
 									pointTimestamp <= this.props.timeRange.endDate)
 							) {
@@ -24,7 +23,7 @@ class Map extends Component {
 									<Icon
 										type="environment"
 										theme="filled"
-										style={{ color: element['colour'], fontSize: '18px' }}
+										style={{ color: element.colour, fontSize: '18px' }}
 										lat={pos.geo_lat}
 										lng={pos.geo_long}
 										text="My Marker"
