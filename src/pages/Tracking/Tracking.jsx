@@ -43,24 +43,7 @@ class Tracking extends Component {
 			},
 		};
 
-		const trackersPromise = api.readTrackers();
-		const pointsPromise = api.readPoints();
-
-		// Wait for both requests to return, then...
-		Promise.all([trackersPromise, pointsPromise]).then(values => {
-			const [trackers, points] = values;
-
-			// Build list of tracker IDs
-			const tracker_ids = trackers.map(tracker => tracker.id);
-			// Turn into object with id as key, and [] as value
-			const pointsMap = tracker_ids.reduce(
-				(acc, id) => ({ ...acc, [id]: [] }),
-				{}
-			);
-
-			// Push points onto appropriate array (per tracker id)
-			points.forEach(point => pointsMap[point.tracker].push(point));
-
+		api.readTrackers().then(trackers => {
 			const animals = trackers.map(tracker => ({
 				name: tracker.animal_id,
 				id: tracker.id,
@@ -75,7 +58,7 @@ class Tracking extends Component {
 					name: false,
 					colour: false,
 				},
-				// tracks ex:
+				// points ex:
 				// [{
 				// 	"id": "49b497aa-461f-40dc-9ba0-774d518f2354",
 				// 	"tracker": "bc6bf7b3-b173-4355-b5d2-ac1cdb2263ad",
@@ -92,16 +75,20 @@ class Tracking extends Component {
 		});
 	}
 
-	toggleDrawer = e => {
-		this.setState({ drawerVisible: !this.state.drawerVisible });
+	toggleDrawer = () => {
+		this.setState(({ drawerVisible }) => ({ drawerVisible: !drawerVisible }));
 	};
 
 	handleDateFilter = dates => {
 		if (dates != null) {
 			this.setState({
 				timeRange: {
-					startDate: new Date(dates['date-time-picker-start']),
-					endDate: new Date(dates['date-time-picker-end']),
+					startDate: dates['date-time-picker-start']
+						? new Date(dates['date-time-picker-start'])
+						: new Date(1990),
+					endDate: dates['date-time-picker-end']
+						? new Date(dates['date-time-picker-end'])
+						: new Date(),
 				},
 			});
 		} else {
@@ -178,14 +165,6 @@ class Tracking extends Component {
 			}),
 			() => this.filterButtonState()
 		);
-
-		// try {
-		// 	// try to access the tracks of the tracker so can populate if fails
-		// 	var tracks =this.state.deerStates.filter(deer => deer.id == e.key)[0].tracks;
-		//
-		// } catch {
-		//    this.getDeerTracks(e.key);
-		// }
 	};
 
 	toggleAllDeer = () => {
@@ -222,10 +201,6 @@ class Tracking extends Component {
 		return (
 			<div>
 				<NavBar
-					deerStates={this.state.deerStates}
-					toggleDeer={this.toggleDeer}
-					toggleAllDeer={this.toggleAllDeer}
-					showAll={this.state.showAll}
 					hideFilter={this.state.hideFilter}
 					/* props for the drawer (filter logic) */
 					drawerVisible={this.state.drawerVisible}
@@ -242,6 +217,8 @@ class Tracking extends Component {
 					deerStates={this.state.deerStates}
 					toggleDeer={this.toggleDeer}
 					toggleAllDeer={this.toggleAllDeer}
+					toggleDrawer={this.toggleDrawer}
+					handleDateFilter={this.handleDateFilter}
 				/>
 			</div>
 		);
