@@ -67,12 +67,8 @@ class Tracking extends Component {
 		if (dates != null) {
 			this.setState({
 				timeRange: {
-					startDate: dates['date-time-picker-start']
-						? new Date(dates['date-time-picker-start'])
-						: new Date(1990),
-					endDate: dates['date-time-picker-end']
-						? new Date(dates['date-time-picker-end'])
-						: new Date(),
+					startDate: new Date(dates['date-time-picker-start']),
+					endDate: new Date(dates['date-time-picker-end']),
 				},
 			});
 		} else {

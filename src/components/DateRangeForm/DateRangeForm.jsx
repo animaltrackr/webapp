@@ -13,15 +13,19 @@ class DateRangeForm extends React.Component {
 				console.log('error????', err);
 				return;
 			}
+			console.log(fieldsValue);
 			// Should format date value before submit.
+			const startDate = fieldsValue['date-time-picker-start']
+				? Date(fieldsValue['date-time-picker-start'])
+				: Date(1990);
+			const endDate = fieldsValue['date-time-picker-end']
+				? Date(fieldsValue['date-time-picker-end'])
+				: Date();
+
 			const values = {
 				...fieldsValue,
-				'date-time-picker-start': fieldsValue['date-time-picker-start'].format(
-					'YYYY-MM-DDTHH:mm:ss'
-				),
-				'date-time-picker-end': fieldsValue['date-time-picker-end'].format(
-					'YYYY-MM-DDTHH:mm:ss'
-				),
+				'date-time-picker-start': startDate.format('YYYY-MM-DDTHH:mm:ss'),
+				'date-time-picker-end': endDate.format('YYYY-MM-DDTHH:mm:ss'),
 			};
 			this.props.handleDateFilter(values);
 			this.props.handleDrawer(e);
@@ -29,6 +33,7 @@ class DateRangeForm extends React.Component {
 	};
 
 	handleClear = e => {
+		this.props.form.resetFields();
 		this.props.handleDateFilter(null);
 		this.props.handleDrawer(e);
 	};
