@@ -1,5 +1,12 @@
 module.exports = {
 	extends: ['react-app', 'airbnb', 'prettier', 'prettier/react'],
+	settings: {
+		'import/resolver': {
+			node: {
+				paths: ['src'],
+			},
+		},
+	},
 	rules: {
 		'import/no-extraneous-dependencies': [
 			'error',
