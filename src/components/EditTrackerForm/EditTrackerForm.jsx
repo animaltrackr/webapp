@@ -1,21 +1,19 @@
 import React, { Component } from 'react';
-import Typography from 'antd/lib/typography';
-import Select from 'antd/lib/select';
 import Spin from 'antd/lib/spin';
 import Icon from 'antd/lib/icon';
+import Typography from 'antd/lib/typography';
+import { PropTypes } from 'prop-types';
 
 import * as api from '../../modules/api';
+
+import ColourOptions from '../ColourOptions/ColourOptions';
+import StatusOptions from '../StatusOptions/StatusOptions';
 
 import './EditTrackerForm.less';
 
 const { Paragraph } = Typography;
-const { Option } = Select;
 
 class EditTrackerForm extends Component {
-	onColourChange = (index, value) => {
-		this.onStateChange(index, value, 'colour');
-	};
-
 	onStateChange = (index, value, type) => {
 		this.props.updateState(index, value, type);
 
@@ -39,10 +37,6 @@ class EditTrackerForm extends Component {
 		} else {
 			this.props.finishedLoading(index, type);
 		}
-	};
-
-	onStatusChange = (index, value) => {
-		this.onStateChange(index, value, 'status');
 	};
 
 	onNameChange = (index, value) => {
@@ -72,38 +66,16 @@ class EditTrackerForm extends Component {
 												<Spin indicator={antIcon} />
 											</div>
 										</div>
-										<div className="option">
-											<Paragraph>Colour: </Paragraph>
-											<Select
-												defaultValue={deer['colour']}
-												onChange={this.onColourChange.bind(this, index)}
-											>
-												<Option value={'red'}>red</Option>
-												<Option value={'blue'}>blue</Option>
-												<Option value={'white'}>white</Option>
-												<Option value={'green'}>green</Option>
-											</Select>
-											<div className="spin-icon" hidden={!deer.loading.colour}>
-												<Spin indicator={antIcon} />
-											</div>
-										</div>
-										<div className="option">
-											<Paragraph>Status: </Paragraph>
-											<Select
-												className="select"
-												defaultValue={deer['status']}
-												onChange={this.onStatusChange.bind(this, index)}
-											>
-												<Option value={'A'}>Active</Option>
-												<Option value={'D'}>Disabled</Option>
-												<Option value={'R'}>Retired</Option>
-												<Option value={'U'}>Unresponsive</Option>
-												<Option value={'X'}>Unused</Option>
-											</Select>
-											<div className="spin-icon" hidden={!deer.loading.status}>
-												<Spin indicator={antIcon} />
-											</div>
-										</div>
+										<ColourOptions
+											onStateChange={this.onStateChange}
+											deer={deer}
+											index={index}
+										/>
+										<StatusOptions
+											onStateChange={this.onStateChange}
+											deer={deer}
+											index={index}
+										/>
 									</div>
 								);
 							}
@@ -115,6 +87,9 @@ class EditTrackerForm extends Component {
 	}
 }
 
-EditTrackerForm.propTypes = {};
+EditTrackerForm.propTypes = {
+	deer: PropTypes.array,
+	index: PropTypes.number,
+};
 
 export default EditTrackerForm;
