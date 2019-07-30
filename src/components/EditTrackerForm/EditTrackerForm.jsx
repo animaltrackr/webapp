@@ -7,15 +7,14 @@ import { PropTypes } from 'prop-types';
 import * as api from '../../modules/api';
 
 import Options from '../Options/Options';
-
 import MaxErrorInput from '../MaxErrorInput/MaxErrorInput';
 
 import './EditTrackerForm.less';
 
-const { Text } = Typography;
+const { Text, Title } = Typography;
 
 class EditTrackerForm extends Component {
-	onStateChange = (deer, value, type) => {
+	onStateChange = (value, type, deer) => {
 		this.props.updateState(deer, value, type);
 
 		if (type !== 'colour') {
@@ -46,8 +45,28 @@ class EditTrackerForm extends Component {
 	};
 
 	render() {
+		var isDeerActive;
+
+		this.props.deerStates
+			? this.props.deerStates.map(deer => {
+					if (deer.visible) {
+						isDeerActive = true;
+						return 1;
+					}
+					return 0;
+			  })
+			: (isDeerActive = false);
+
 		return (
 			<div>
+				{isDeerActive ? (
+					<div>
+						<Title level={4}>Edit Tracker</Title>
+						<Divider />
+					</div>
+				) : (
+					''
+				)}
 				{this.props.deerStates
 					? this.props.deerStates.map((deer, index) => {
 							if (deer.visible) {

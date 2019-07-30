@@ -1,9 +1,11 @@
 import React from 'react';
 
-import { Drawer } from 'antd';
+import { Drawer, Icon } from 'antd';
 
-import EditTrackerForm from 'components/EditTrackerForm';
-import AddTrackerForm from 'components/AddTrackerForm';
+import EditTrackerForm from '../EditTrackerForm/EditTrackerForm';
+import AddTrackerForm from '../AddTrackerForm/AddTrackerForm';
+
+import './FilterDrawer.less';
 
 class FilterDrawer extends React.Component {
 	static defaultProps = {
@@ -31,20 +33,27 @@ class FilterDrawer extends React.Component {
 		return (
 			<div>
 				<Drawer
-					title="Edit Tracker Properties"
 					placement="right"
 					closable={false}
 					onClose={this.props.toggleDrawer}
 					visible={this.props.drawerVisible}
 					width="300px"
 				>
+					<Icon
+						className="x-icon"
+						type="close"
+						onClick={this.props.toggleDrawer}
+					/>
 					<EditTrackerForm
 						deerStates={this.props.deerStates}
 						updateState={this.props.updateState}
 						finishedLoading={this.props.finishedLoading}
 						options={this.props.optionsList}
 					/>
-					<AddTrackerForm options={this.props.optionsList} />
+					<AddTrackerForm
+						options={this.props.optionsList}
+						addDeerToDeerStates={this.props.addDeerToDeerStates}
+					/>
 				</Drawer>
 			</div>
 		);

@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import Input from 'antd/lib/input';
-import Typography from 'antd/lib/typography';
 import Spin from 'antd/lib/spin';
 import Icon from 'antd/lib/icon';
 import Button from 'antd/lib/button';
+import Typography from 'antd/lib/typography';
 import { Divider } from 'antd';
 
 import * as api from '../../modules/api';
@@ -21,10 +21,15 @@ class AddTrackerForm extends Component {
 
 		this.state = {
 			name: '',
-			status: '',
-			colour: '',
+			status: this.props.option ? this.props.options.statusOptions[0][0] : 'A',
+			colour: this.props.option
+				? this.props.options.colourOptions[0][0]
+				: 'red',
 			max_error_radius: 0,
-			location_method: '',
+			location_method: this.props.options
+				? this.props.options.locationMethodOptions[0][0]
+				: 'G',
+			isLoading: false,
 		};
 	}
 
@@ -34,34 +39,63 @@ class AddTrackerForm extends Component {
 
 	onStateChange = (value, type) => {
 		if (type === 'colour') {
-			console.log(value);
 			this.setState({ colour: value });
 		} else if (type === 'status') {
-			console.log(value);
 			this.setState({ status: value });
 		} else if (type === 'location_method') {
-			console.log(value);
 			this.setState({ location_method: value });
 		}
 	};
 
-	handleSubmit = () => {
-		api.createTracker({
-			animal_id: this.state.name,
+	createNewDeer = id => {
+		const newDeer = {
+			name: this.state.name,
+			id: id,
 			status: this.state.status,
+			visible: false,
+			colour: this.state.colour,
+			points: [],
 			max_error_radius: this.state.max_error_radius,
 			location_method: this.state.location_method,
-		});
+			loading: {
+				status: false,
+				name: false,
+				colour: false,
+				location_method: false,
+				max_error_radius: false,
+			},
+		};
+		this.props.addDeerToDeerStates(newDeer);
+	};
+
+	handleSubmit = () => {
+		this.setState({ isLoading: true });
+
+		api
+			.createTracker({
+				animal_id: this.state.name,
+				status: this.state.status,
+				max_error_radius: this.state.max_error_radius,
+				location_method: this.state.location_method,
+			})
+			.then(values => {
+				this.createNewDeer(values.id);
+				this.handleClear();
+				this.forceUpdate();
+			});
 	};
 
 	handleClear = () => {
-		this.setState({
-			name: '',
-			status: '',
-			colour: '',
-			max_error_radius: 0,
-			location_method: '',
-		});
+		this.setState(
+			{
+				name: '',
+				status: this.props.options.statusOptions[0][0],
+				colour: this.props.options.colourOptions[0][0],
+				max_error_radius: 0,
+				location_method: this.props.options.locationMethodOptions[0][0],
+			},
+			() => this.setState({ isLoading: false })
+		);
 	};
 
 	onMaxErrorRadiusChange = value => {
@@ -79,25 +113,34 @@ class AddTrackerForm extends Component {
 					<div className="input-title-wrapper">
 						<Text strong>Name:</Text>
 						<div className="input-wrapper">
-							<Input onChange={this.onNameChange} placeholder="Enter Name" />
+							<Input
+								allowClear
+								onChange={this.onNameChange}
+								placeholder="Enter Name"
+							/>
 						</div>
 					</div>
 					<Options
 						onStateChange={this.onStateChange}
 						title="Status"
-						options={this.props.options.statusOptions}
+						options={this.props.options ? this.props.options.statusOptions : ''}
+						default={this.state.status}
 						type="status"
 					/>
 					<Options
 						onStateChange={this.onStateChange}
 						title="Colour"
-						options={this.props.options.colourOptions}
+						options={this.props.options ? this.props.options.colourOptions : ''}
+						default={this.state.colour}
 						type="colour"
 					/>
 					<Options
 						onStateChange={this.onStateChange}
 						title="Location Method"
-						options={this.props.options.locationMethodOptions}
+						options={
+							this.props.options ? this.props.options.locationMethodOptions : ''
+						}
+						default={this.state.location_method}
 						type="location_method"
 					/>
 					<Text>Maximum Error Radius:</Text>
@@ -111,10 +154,10 @@ class AddTrackerForm extends Component {
 						<Button type="primary" onClick={this.handleSubmit}>
 							Submit
 						</Button>
+						<div className="spin-icon-wrapper">
+							<Spin indicator={loadingIcon} hidden={!this.state.isLoading} />
+						</div>
 					</div>
-					<Button type="secondary" onClick={this.handleClear}>
-						Clear
-					</Button>
 				</div>
 			</div>
 		);

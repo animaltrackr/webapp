@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import Spin from 'antd/lib/spin';
 import Icon from 'antd/lib/icon';
-import PropTypes from 'prop-types';
 import { Slider, InputNumber, Row, Col } from 'antd';
 
 class MaxErrorInput extends Component {

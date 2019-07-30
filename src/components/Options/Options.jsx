@@ -1,10 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import Spin from 'antd/lib/spin';
-import Icon from 'antd/lib/icon';
-import Typography from 'antd/lib/typography';
-import Select from 'antd/lib/select';
+import { Spin, Icon, Typography, Select } from 'antd';
 
 import './Options.less';
 
@@ -13,7 +10,7 @@ const { Option } = Select;
 
 class Options extends Component {
 	onStatusChange = (deer, value) => {
-		this.props.onStateChange(deer, value, this.props.type);
+		this.props.onStateChange(value, this.props.type, deer);
 	};
 
 	render() {
@@ -28,7 +25,7 @@ class Options extends Component {
 							defaultValue={
 								this.props.deer
 									? this.props.deer[this.props.type]
-									: this.props.options[0][1]
+									: this.props.default
 							}
 							onChange={this.onStatusChange.bind(this, this.props.deer)}
 						>

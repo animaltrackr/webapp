@@ -55,6 +55,13 @@ class Tracking extends Component {
 		});
 	}
 
+	addDeerToDeerStates = deer => {
+		var newDeerStates = this.state.deerStates;
+		newDeerStates.push(deer);
+
+		this.setState({ deerStates: newDeerStates });
+	};
+
 	toggleDrawer = () => {
 		this.setState(({ drawerVisible }) => ({ drawerVisible: !drawerVisible }));
 	};
@@ -207,6 +214,8 @@ class Tracking extends Component {
 					handleDateFilter={this.handleDateFilter}
 					updateState={this.updateState}
 					finishedLoading={this.finishedLoading}
+					/* props for adding/editing new deer */
+					addDeerToDeerStates={this.addDeerToDeerStates}
 				/>
 				<Map
 					deerStates={this.state.deerStates}
