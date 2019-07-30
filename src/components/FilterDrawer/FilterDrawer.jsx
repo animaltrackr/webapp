@@ -3,8 +3,30 @@ import React from 'react';
 import { Drawer } from 'antd';
 
 import EditTrackerForm from 'components/EditTrackerForm';
+import AddTrackerForm from 'components/AddTrackerForm';
 
 class FilterDrawer extends React.Component {
+	static defaultProps = {
+		optionsList: {
+			statusOptions: [
+				['A', 'Active'],
+				['D', 'Disabled'],
+				['R', 'Retired'],
+				['U', 'Unresponsive'],
+				['X', 'Unused'],
+			],
+			colourOptions: [
+				['blue', 'blue'],
+				['gray', 'gray'],
+				['green', 'green'],
+				['purple', 'purple'],
+				['white', 'white'],
+				['yellow', 'yellow'],
+			],
+			locationMethodOptions: [['G', 'GPS'], ['L', 'LTE'], ['B', 'GPS + LTE']],
+		},
+	};
+
 	render() {
 		return (
 			<div>
@@ -20,7 +42,9 @@ class FilterDrawer extends React.Component {
 						deerStates={this.props.deerStates}
 						updateState={this.props.updateState}
 						finishedLoading={this.props.finishedLoading}
+						options={this.props.optionsList}
 					/>
+					<AddTrackerForm options={this.props.optionsList} />
 				</Drawer>
 			</div>
 		);

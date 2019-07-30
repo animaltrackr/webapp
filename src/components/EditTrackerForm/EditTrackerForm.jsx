@@ -1,6 +1,4 @@
 import React, { Component } from 'react';
-import Spin from 'antd/lib/spin';
-import Icon from 'antd/lib/icon';
 import Typography from 'antd/lib/typography';
 import Divider from 'antd/lib/divider';
 
@@ -8,8 +6,9 @@ import { PropTypes } from 'prop-types';
 
 import * as api from '../../modules/api';
 
-import ColourOptions from '../ColourOptions/ColourOptions';
-import StatusOptions from '../StatusOptions/StatusOptions';
+import Options from '../Options/Options';
+
+import MaxErrorInput from '../MaxErrorInput/MaxErrorInput';
 
 import './EditTrackerForm.less';
 
@@ -20,17 +19,19 @@ class EditTrackerForm extends Component {
 		this.props.updateState(deer, value, type);
 
 		if (type !== 'colour') {
-			const updatePromise = api.updateTracker(deer.id, {
-				id: deer.id,
-				animal_id: type === 'name' ? value : deer.id,
-				status: type === 'status' ? value : deer.status,
-				max_error_radius: deer.max_error_radius,
-				location_method: deer.location_method,
-				tracks: deer.tracks,
-			});
-			Promise.all([updatePromise]).then(values => {
-				return this.props.finishedLoading(deer, type);
-			});
+			api
+				.updateTracker(deer.id, {
+					id: deer.id,
+					animal_id: type === 'name' ? value : deer.id,
+					status: type === 'status' ? value : deer.status,
+					max_error_radius: type === 'maxError' ? value : deer.max_error_radius,
+					location_method:
+						type === 'location_method' ? value : deer.location_method,
+					tracks: deer.tracks,
+				})
+				.then(values => {
+					return this.props.finishedLoading(deer, type);
+				});
 		} else {
 			this.props.finishedLoading(deer, type);
 		}
@@ -40,9 +41,11 @@ class EditTrackerForm extends Component {
 		this.onStateChange(deer, value, 'name');
 	};
 
-	render() {
-		const loadingIcon = <Icon type="loading" style={{ fontSize: 20 }} spin />;
+	onMaxErrorRadiusChange = (deer, value) => {
+		this.onStateChange(deer, value, 'maxError');
+	};
 
+	render() {
 		return (
 			<div>
 				{this.props.deerStates
@@ -59,19 +62,37 @@ class EditTrackerForm extends Component {
 											>
 												{deer.name}
 											</Text>
-											<div className="spin-icon" hidden={!deer.loading.name}>
-												<Spin indicator={loadingIcon} />
-											</div>
 										</div>
-										<ColourOptions
+										<Options
 											onStateChange={this.onStateChange}
+											title="Colour"
+											options={this.props.options.colourOptions}
+											type="colour"
 											deer={deer}
-											index={index}
 										/>
-										<StatusOptions
+										<Options
 											onStateChange={this.onStateChange}
+											title="Status"
+											options={this.props.options.statusOptions}
+											type="status"
 											deer={deer}
-											index={index}
+										/>
+
+										<Options
+											onStateChange={this.onStateChange}
+											title="Location Method"
+											options={this.props.options.locationMethodOptions}
+											type="location_method"
+											deer={deer}
+										/>
+										<Text>Maximum Error Radius:</Text>
+										<MaxErrorInput
+											onMaxErrorRadiusChange={this.onMaxErrorRadiusChange.bind(
+												this,
+												deer
+											)}
+											maxError={deer.max_error_radius}
+											loading={deer.loading.max_error_radius}
 										/>
 										<Divider />
 									</div>
@@ -88,6 +109,8 @@ class EditTrackerForm extends Component {
 EditTrackerForm.propTypes = {
 	deer: PropTypes.array,
 	index: PropTypes.number,
+	optionsLists: PropTypes.array,
+	max_error_radius: PropTypes.number,
 };
 
 export default EditTrackerForm;

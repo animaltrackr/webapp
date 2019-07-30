@@ -35,6 +35,8 @@ class Tracking extends Component {
 					status: false,
 					name: false,
 					colour: false,
+					location_method: false,
+					max_error_radius: false,
 				},
 				// points ex:
 				// [{
@@ -108,6 +110,14 @@ class Tracking extends Component {
 						selectedDeer.id === deer.id && type === 'colour'
 							? true
 							: deer.loading.colour,
+					max_error_radius:
+						selectedDeer.id === deer.id && type === 'max_error_radius'
+							? true
+							: deer.loading.max_error_radius,
+					location_method:
+						selectedDeer.id === deer.id && type === 'location_method'
+							? true
+							: deer.loading.location_method,
 				},
 			})),
 		}));
@@ -130,6 +140,14 @@ class Tracking extends Component {
 						selectedDeer.id === deer.id && type === 'colour'
 							? false
 							: deer.loading.colour,
+					max_error_radius:
+						selectedDeer.id === deer.id && type === 'max_error_radius'
+							? false
+							: deer.loading.max_error_radius,
+					location_method:
+						selectedDeer.id === deer.id && type === 'location_method'
+							? false
+							: deer.loading.location_method,
 				},
 			})),
 		}));
