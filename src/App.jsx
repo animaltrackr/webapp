@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
 import {
-	BrowserRouter as Router,
+	HashRouter as Router,
 	Route,
 	Switch,
 	Redirect,
@@ -17,11 +17,7 @@ class App extends Component {
 		return (
 			<Router>
 				<Switch>
-					<Route
-						exact
-						path={process.env.PUBLIC_URL + '/'}
-						component={MainPage}
-					/>
+					<Route exact path="/" component={MainPage} />
 					<Route exact path="/app" component={Tracking} />
 					<Route exact path="/404" component={NotFoundPage} />
 					<Redirect to="/404" />
