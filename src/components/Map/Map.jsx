@@ -1,41 +1,55 @@
 import React, { Component } from 'react';
 import GoogleMapReact from 'google-map-react';
-import { Icon } from 'antd';
+import { Icon, Tooltip } from 'antd';
+import './Map.less';
 
 class Map extends Component {
 	renderIcons = () => {
-		return this.props.deerStates
-			? this.props.deerStates.map((element, index) => {
-					if (element.visible) {
-						return element.points.map(pos => {
-							if (pos.geo_lat.startsWith('-')) {
-								const tmp = pos.geo_lat;
-								pos.geo_lat = pos.geo_long;
-								pos.geo_long = tmp;
-							}
-							const pointTimestamp = new Date(pos.timestamp);
-							if (
-								!this.props.timeRange.startDate ||
-								(pointTimestamp >= this.props.timeRange.startDate &&
-									pointTimestamp <= this.props.timeRange.endDate)
-							) {
-								return (
-									<Icon
-										type="environment"
-										theme="filled"
-										style={{ color: element.colour, fontSize: '18px' }}
-										lat={pos.geo_lat}
-										lng={pos.geo_long}
-										text="My Marker"
-									/>
-								);
-							}
-							return '';
-						});
+		const { deerStates, timeRange } = this.props;
+		return deerStates
+			.filter(deer => deer.visible)
+			.map(deer => {
+				return deer.points.map(point => {
+					if (point.geo_lat.startsWith('-')) {
+						const tmp = point.geo_lat;
+						point.geo_lat = point.geo_long;
+						point.geo_long = tmp;
 					}
-					return '';
-			  })
-			: '';
+					const pointTimestamp = new Date(point.timestamp);
+					if (
+						!timeRange.startDate ||
+						(pointTimestamp >= timeRange.startDate &&
+							pointTimestamp <= timeRange.endDate)
+					) {
+						return (
+							<Tooltip
+								lat={point.geo_lat}
+								lng={point.geo_long}
+								mouseEnterDelay={0.05}
+								overlayClassName="tooltip"
+								title={() => (
+									<div>
+										<span>{deer.name}</span>
+										<span>lat: {point.geo_lat}</span>
+										<span>long: {point.geo_long}</span>
+										<span>{pointTimestamp.toLocaleString()}</span>
+									</div>
+								)}
+							>
+								<Icon
+									type="environment"
+									theme="filled"
+									style={{
+										color: deer.colour,
+									}}
+									className="pointer"
+								/>
+							</Tooltip>
+						);
+					}
+					return null;
+				});
+			});
 	};
 
 	render() {
