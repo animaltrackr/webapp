@@ -5,6 +5,10 @@ import NavBar from 'components/NavBar';
 import ControlCard from 'components/ControlCard';
 
 class Tracking extends Component {
+	static defaultProps = {
+		colours: ['red', 'blue', 'white', 'gray', 'green', 'purple'],
+	};
+
 	constructor(props) {
 		super(props);
 
@@ -22,12 +26,12 @@ class Tracking extends Component {
 		};
 
 		api.readTrackers().then(trackers => {
-			const animals = trackers.map(tracker => ({
+			const animals = trackers.map((tracker, index) => ({
 				name: tracker.animal_id,
 				id: tracker.id,
 				status: tracker.status,
 				visible: false,
-				colour: 'red',
+				colour: this.props.colours[index],
 				points: tracker.points,
 				max_error_radius: tracker.max_error_radius,
 				location_method: tracker.location_method,

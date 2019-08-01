@@ -1,12 +1,8 @@
 import React, { Component } from 'react';
-import Input from 'antd/lib/input';
-import Spin from 'antd/lib/spin';
-import Icon from 'antd/lib/icon';
-import Button from 'antd/lib/button';
-import Typography from 'antd/lib/typography';
-import { Divider } from 'antd';
 
-import * as api from '../../modules/api';
+import { Divider, Typography, Button, Icon, Spin, Input } from 'antd';
+
+import * as api from 'modules/api';
 
 import Options from '../Options/Options';
 import MaxErrorInput from '../MaxErrorInput/MaxErrorInput';
@@ -81,7 +77,7 @@ class AddTrackerForm extends Component {
 			.then(values => {
 				this.createNewDeer(values.id);
 				this.handleClear();
-				this.forceUpdate();
+				this.props.toggleDrawer();
 			});
 	};
 

@@ -53,6 +53,7 @@ class FilterDrawer extends React.Component {
 					<AddTrackerForm
 						options={this.props.optionsList}
 						addDeerToDeerStates={this.props.addDeerToDeerStates}
+						toggleDrawer={this.props.toggleDrawer}
 					/>
 				</Drawer>
 			</div>
