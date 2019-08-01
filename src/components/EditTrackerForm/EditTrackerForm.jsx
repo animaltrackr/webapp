@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Typography from 'antd/lib/typography';
 import Divider from 'antd/lib/divider';
 
+import { Icon } from 'antd';
 import { PropTypes } from 'prop-types';
 
 import * as api from '../../modules/api';
@@ -44,12 +45,17 @@ class EditTrackerForm extends Component {
 		this.onStateChange(deer, value, 'maxError');
 	};
 
+	onDeleteTracker = (deer, e) => {
+		api.deleteTracker(deer.id);
+		this.props.deleteDeerFromDeerStates(deer);
+	};
+
 	render() {
-		var isDeerActive;
+		let isDeerActive;
 
 		this.props.deerStates
 			? this.props.deerStates.map(deer => {
-					if (deer.visible) {
+					if (deer && deer.visible) {
 						isDeerActive = true;
 						return 1;
 					}
@@ -69,7 +75,7 @@ class EditTrackerForm extends Component {
 				)}
 				{this.props.deerStates
 					? this.props.deerStates.map((deer, index) => {
-							if (deer.visible) {
+							if (deer && deer.visible) {
 								return (
 									<div className="tracker-form">
 										<div className="option-name">
@@ -81,6 +87,13 @@ class EditTrackerForm extends Component {
 											>
 												{deer.name}
 											</Text>
+											<div className="trash-wrapper">
+												<Icon
+													type="delete"
+													className="trash-icon"
+													onClick={this.onDeleteTracker.bind(this, deer)}
+												/>
+											</div>
 										</div>
 										<Options
 											onStateChange={this.onStateChange}

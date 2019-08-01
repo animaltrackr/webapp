@@ -6,7 +6,15 @@ import ControlCard from 'components/ControlCard';
 
 class Tracking extends Component {
 	static defaultProps = {
-		colours: ['red', 'blue', 'white', 'gray', 'green', 'purple'],
+		colours: [
+			'#DD614A',
+			'#B3D16E',
+			'#EEF4D4',
+			'#9E978E',
+			'#B3D16E',
+			'#9EA5D6',
+			'#EFEC83',
+		],
 	};
 
 	constructor(props) {
@@ -60,8 +68,16 @@ class Tracking extends Component {
 	}
 
 	addDeerToDeerStates = deer => {
-		var newDeerStates = this.state.deerStates;
+		let newDeerStates = this.state.deerStates;
 		newDeerStates.push(deer);
+
+		this.setState({ deerStates: newDeerStates });
+	};
+
+	deleteDeerFromDeerStates = deer => {
+		let newDeerStates = this.state.deerStates.filter(function(currDeer) {
+			return currDeer.id !== deer.id;
+		});
 
 		this.setState({ deerStates: newDeerStates });
 	};
@@ -220,6 +236,7 @@ class Tracking extends Component {
 					finishedLoading={this.finishedLoading}
 					/* props for adding/editing new deer */
 					addDeerToDeerStates={this.addDeerToDeerStates}
+					deleteDeerFromDeerStates={this.deleteDeerFromDeerStates}
 				/>
 				<Map
 					deerStates={this.state.deerStates}

@@ -39,6 +39,7 @@ class NavBar extends React.Component {
 					updateState={this.props.updateState}
 					finishedLoading={this.props.finishedLoading}
 					addDeerToDeerStates={this.props.addDeerToDeerStates}
+					deleteDeerFromDeerStates={this.props.deleteDeerFromDeerStates}
 				/>
 			</React.Fragment>
 		);

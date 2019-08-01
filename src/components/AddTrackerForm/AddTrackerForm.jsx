@@ -76,7 +76,7 @@ class AddTrackerForm extends Component {
 			})
 			.then(values => {
 				this.createNewDeer(values.id);
-				this.handleClear();
+				this.setState({ isLoading: false });
 				this.props.toggleDrawer();
 			});
 	};

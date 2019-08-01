@@ -29,8 +29,9 @@ class Options extends Component {
 							}
 							onChange={this.onStatusChange.bind(this, this.props.deer)}
 						>
+							{console.log(this.props.options)}
 							{this.props.options.map(key => {
-								return <Option value={key[0]}>{key[1]}</Option>;
+								return <Option value={key[1]}>{key[0]}</Option>;
 							})}
 						</Select>
 					</div>

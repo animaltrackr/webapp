@@ -6,7 +6,7 @@ class Map extends Component {
 	renderIcons = () => {
 		return this.props.deerStates
 			? this.props.deerStates.map((element, index) => {
-					if (element.visible) {
+					if (element && element.visible) {
 						return element.points.map(pos => {
 							if (pos.geo_lat.startsWith('-')) {
 								const tmp = pos.geo_lat;

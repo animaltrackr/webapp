@@ -18,12 +18,13 @@ class FilterDrawer extends React.Component {
 				['X', 'Unused'],
 			],
 			colourOptions: [
-				['blue', 'blue'],
-				['gray', 'gray'],
-				['green', 'green'],
-				['purple', 'purple'],
-				['white', 'white'],
-				['yellow', 'yellow'],
+				['red', '#DD614A'],
+				['blue', '#0E6BA8'],
+				['gray', '#9E978E'],
+				['green', '#B3D16E'],
+				['purple', '#9EA5D6'],
+				['white', '#EEF4D4'],
+				['yellow', '#EFEC83'],
 			],
 			locationMethodOptions: [['G', 'GPS'], ['L', 'LTE'], ['B', 'GPS + LTE']],
 		},
@@ -49,6 +50,7 @@ class FilterDrawer extends React.Component {
 						updateState={this.props.updateState}
 						finishedLoading={this.props.finishedLoading}
 						options={this.props.optionsList}
+						deleteDeerFromDeerStates={this.props.deleteDeerFromDeerStates}
 					/>
 					<AddTrackerForm
 						options={this.props.optionsList}
