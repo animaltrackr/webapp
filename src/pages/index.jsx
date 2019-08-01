@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-import { Layout, Row, Col, Button } from 'antd';
+import { Layout, Row, Col, Button, Icon } from 'antd';
 
 import './index.less';
 
@@ -60,9 +60,9 @@ const MainPage = () => {
 							foundation. Our server runs in a AWS EC2 instance, using a
 							Postresql database with a Django backend. Our backend is the hub
 							for communication between our tracker and our frontend, providing
-							a RESTful API service. The frontend is written using in React and
-							all of our code is hosted in Github configured with CircleCI to
-							automate deployments and ensure code quality.
+							a RESTful API service. The frontend is written in React and all of
+							our code is hosted in Github configured with CircleCI to automate
+							deployments and ensure code quality.
 						</p>
 					</Col>
 					<figure className="svg desc-img house-img" />
@@ -84,7 +84,17 @@ const MainPage = () => {
 			<Footer>
 				<Row type="flex" justify="space-between">
 					<p>we're ready to be production ready</p>
-					<p>and here</p>
+					<p>
+						<a href={'https://twitter.com/iamdevloper'}>
+							<Icon className="social-media-icon" type="twitter" />
+						</a>
+						<a href={'https://www.facebook.com/groups/dogspotting/'}>
+							<Icon className="social-media-icon" type="facebook" />
+						</a>
+						<a href={'https://www.instagram.com/jerryoftheday/?hl=en'}>
+							<Icon className="social-media-icon" type="instagram" />
+						</a>
+					</p>
 				</Row>
 			</Footer>
 		</Layout>
