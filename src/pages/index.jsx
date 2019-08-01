@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-import { Layout, Row, Col, Button } from 'antd';
+import { Layout, Row, Col, Button, Icon } from 'antd';
 
 import './index.less';
 
@@ -16,10 +16,12 @@ const MainPage = () => {
 						Be on the right track.
 					</h1>
 					<p className="text highlight-text animated-fade-up">
-						Our collars are fuckin’ bomb, like, so good. You wish you had our
-						collars. Imagine a world where you could track animals cheaper and
-						more efficently. Deer? Hell yeah. Cats? Uh, duh. Humans? No, but
-						secretly yes.
+						The current animal tracking collars on the market are a heavy duty
+						design, for tracking in difficult terrain. The lack of development
+						in this space has forced vastly different user groups to settle on a
+						"one-size-fits-all" solution. Wildlife tracking in urban
+						environments require a different product, which is cheaper, lighter,
+						and more reliable in an industrial setting.
 					</p>
 					<Link to="app">
 						<Button
@@ -39,10 +41,13 @@ const MainPage = () => {
 					<Col span={16} className="desc-area">
 						<h1 className="text title-text">What do our collars do?</h1>
 						<p className="text highlight-text">
-							Doggo ipsum pupper maximum borkdrive much ruin diet very hand that
-							feed shibe porgo he made many woofs, the neighborhood pupper stop
-							it fren yapper heckin good boys length boy, long woofer shooberino
-							lotsa pats doggorino.
+							Unlike the trackers on the market, our collars are reliable in an
+							urban setting. Urban settings provide an asset that remote
+							tracking areas can not: blanket cell coverage. We provide a
+							mechanism for users to configure the maximum acceptable error
+							radius, using LTE if it meets accuracy settings, otherwise falling
+							back to traditional GPS. This enables our collars to save power,
+							lasting longer for your study's needs.
 						</p>
 					</Col>
 				</Row>
@@ -51,12 +56,13 @@ const MainPage = () => {
 					<Col span={16} className="desc-area">
 						<h1 className="text title-text">How did we make them?</h1>
 						<p className="text highlight-text">
-							Clouds floofs tungg mlem yapper, heckin ruff he made many woofs
-							pupper waggy wags, shoob heckin good boys and girls borking doggo.
-							Maximum borkdrive very hand that feed shibe floofs shibe heckin
-							good boys and girls long doggo, I am bekom fat fat boi yapper
-							corgo. Doggorino long woofer the neighborhood pupper pupperino,
-							shoob. Very jealous pupper yapper clouds vvv, ur givin me a spook.
+							Just like any sound structure, our trackers are built with a solid
+							foundation. Our server runs in a AWS EC2 instance, using a
+							Postresql database with a Django backend. Our backend is the hub
+							for communication between our tracker and our frontend, providing
+							a RESTful API service. The frontend is written in React and all of
+							our code is hosted in Github configured with CircleCI to automate
+							deployments and ensure code quality.
 						</p>
 					</Col>
 					<figure className="svg desc-img house-img" />
@@ -67,12 +73,9 @@ const MainPage = () => {
 					<Col span={16} className="desc-area">
 						<h1 className="text title-text">Why partner with us?</h1>
 						<p className="text highlight-text">
-							You are doing me a frighten vvv smol puggo very hand that feed
-							shibe woofer, h*ck shooberino aqua doggo h*ck. wow such tempt
-							heckin good boys and girls pupper. Wrinkler corgo long water shoob
-							borkdrive length boy, yapper very good spot ur givin me a spook I
-							am bekom fat shooberino, most angery pupper I have ever seen
-							adorable doggo boofers.
+							We're a group of passionate students who enjoy solving interesting
+							problems. We offer an affordable, and flexible option suitable for
+							your needs.
 						</p>
 					</Col>
 				</Row>
@@ -80,8 +83,18 @@ const MainPage = () => {
 
 			<Footer>
 				<Row type="flex" justify="space-between">
-					<p>idk maybe link to something?</p>
-					<p>and here</p>
+					<p>we're ready to be production ready</p>
+					<p>
+						<a href={'https://twitter.com/iamdevloper'}>
+							<Icon className="social-media-icon" type="twitter" />
+						</a>
+						<a href={'https://www.facebook.com/groups/dogspotting/'}>
+							<Icon className="social-media-icon" type="facebook" />
+						</a>
+						<a href={'https://www.instagram.com/jerryoftheday/?hl=en'}>
+							<Icon className="social-media-icon" type="instagram" />
+						</a>
+					</p>
 				</Row>
 			</Footer>
 		</Layout>
