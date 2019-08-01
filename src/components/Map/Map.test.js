@@ -4,7 +4,7 @@ import Map from './Map';
 
 describe('<Map />', () => {
 	test('renders', () => {
-		const wrapper = shallow(<Map />);
+		const wrapper = shallow(<Map deerStates={[]} />);
 		expect(wrapper).toMatchSnapshot();
 	});
 });
