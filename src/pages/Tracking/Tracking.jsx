@@ -5,6 +5,18 @@ import NavBar from 'components/NavBar';
 import ControlCard from 'components/ControlCard';
 
 class Tracking extends Component {
+	static defaultProps = {
+		colours: [
+			'#DD614A',
+			'#B3D16E',
+			'#EEF4D4',
+			'#9E978E',
+			'#B3D16E',
+			'#9EA5D6',
+			'#EFEC83',
+		],
+	};
+
 	constructor(props) {
 		super(props);
 
@@ -22,12 +34,12 @@ class Tracking extends Component {
 		};
 
 		api.readTrackers().then(trackers => {
-			const animals = trackers.map(tracker => ({
+			const animals = trackers.map((tracker, index) => ({
 				name: tracker.animal_id,
 				id: tracker.id,
 				status: tracker.status,
 				visible: false,
-				colour: 'red',
+				colour: this.props.colours[index],
 				points: tracker.points,
 				max_error_radius: tracker.max_error_radius,
 				location_method: tracker.location_method,
@@ -35,6 +47,8 @@ class Tracking extends Component {
 					status: false,
 					name: false,
 					colour: false,
+					location_method: false,
+					max_error_radius: false,
 				},
 				// points ex:
 				// [{
@@ -52,6 +66,21 @@ class Tracking extends Component {
 			this.setState({ deerStates: animals, loading: false });
 		});
 	}
+
+	addDeerToDeerStates = deer => {
+		let newDeerStates = this.state.deerStates;
+		newDeerStates.push(deer);
+
+		this.setState({ deerStates: newDeerStates });
+	};
+
+	deleteDeerFromDeerStates = deer => {
+		let newDeerStates = this.state.deerStates.filter(function(currDeer) {
+			return currDeer.id !== deer.id;
+		});
+
+		this.setState({ deerStates: newDeerStates });
+	};
 
 	toggleDrawer = () => {
 		this.setState(({ drawerVisible }) => ({ drawerVisible: !drawerVisible }));
@@ -108,6 +137,14 @@ class Tracking extends Component {
 						selectedDeer.id === deer.id && type === 'colour'
 							? true
 							: deer.loading.colour,
+					max_error_radius:
+						selectedDeer.id === deer.id && type === 'max_error_radius'
+							? true
+							: deer.loading.max_error_radius,
+					location_method:
+						selectedDeer.id === deer.id && type === 'location_method'
+							? true
+							: deer.loading.location_method,
 				},
 			})),
 		}));
@@ -130,6 +167,14 @@ class Tracking extends Component {
 						selectedDeer.id === deer.id && type === 'colour'
 							? false
 							: deer.loading.colour,
+					max_error_radius:
+						selectedDeer.id === deer.id && type === 'max_error_radius'
+							? false
+							: deer.loading.max_error_radius,
+					location_method:
+						selectedDeer.id === deer.id && type === 'location_method'
+							? false
+							: deer.loading.location_method,
 				},
 			})),
 		}));
@@ -189,6 +234,9 @@ class Tracking extends Component {
 					handleDateFilter={this.handleDateFilter}
 					updateState={this.updateState}
 					finishedLoading={this.finishedLoading}
+					/* props for adding/editing new deer */
+					addDeerToDeerStates={this.addDeerToDeerStates}
+					deleteDeerFromDeerStates={this.deleteDeerFromDeerStates}
 				/>
 				<Map
 					deerStates={this.state.deerStates}
