@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import { Typography, Button } from 'antd';
+import { Typography, Icon } from 'antd';
 import FilterDrawer from '../FilterDrawer/FilterDrawer';
 
 import './NavBar.less';
@@ -23,12 +23,13 @@ class NavBar extends React.Component {
 					<Title level={3}>
 						<Link to="/">animaltrackr</Link>
 					</Title>
-					<Button
-						onClick={this.props.toggleDrawer}
-						disabled={this.props.hideFilter}
-					>
-						Filter
-					</Button>
+					<div className="cog-wrapper">
+						<Icon
+							className={`cog-icon`}
+							type="setting"
+							onClick={this.props.toggleDrawer}
+						/>
+					</div>
 				</div>
 				<FilterDrawer
 					deerStates={this.props.deerStates}
@@ -37,6 +38,8 @@ class NavBar extends React.Component {
 					handleDateFilter={this.props.handleDateFilter}
 					updateState={this.props.updateState}
 					finishedLoading={this.props.finishedLoading}
+					addDeerToDeerStates={this.props.addDeerToDeerStates}
+					deleteDeerFromDeerStates={this.props.deleteDeerFromDeerStates}
 				/>
 			</React.Fragment>
 		);

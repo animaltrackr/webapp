@@ -7,26 +7,26 @@ const METHOD = {
 	DELETE: 'DELETE',
 };
 
-// Log outgoing requests
-const logRequest = (method, url, body = undefined) => {
-	let message = `${method} Request made to ${url}`;
-	if (body) message += `\nWith body: ${JSON.stringify(body)}`;
-
-	console.info(message);
-};
-
-// Log incoming responses
-const logResponse = (method, url, body = undefined) => {
-	let message = `${method} Response from ${url}`;
-	if (body) message += `\nWith body: ${JSON.stringify(body)}`;
-
-	console.info(message);
-};
+// // Log outgoing requests
+// const logRequest = (method, url, body = undefined) => {
+// 	let message = `${method} Request made to ${url}`;
+// 	if (body) message += `\nWith body: ${JSON.stringify(body)}`;
+//
+// 	console.info(message);
+// };
+//
+// // Log incoming responses
+// const logResponse = (method, url, body = undefined) => {
+// 	let message = `${method} Response from ${url}`;
+// 	if (body) message += `\nWith body: ${JSON.stringify(body)}`;
+//
+// 	console.info(message);
+// };
 
 // Compose fetch with logging & JSON parsing
 const myFetch = (url, options = {}) => {
-	const method = options.method || METHOD.GET;
-	logRequest(method, url, options);
+	// const method = options.method || METHOD.GET;
+	// logRequest(method, url, options);
 
 	return fetch(url, {
 		headers: {
@@ -35,9 +35,15 @@ const myFetch = (url, options = {}) => {
 		},
 		...options,
 	})
-		.then(response => response.json())
+		.then(response => {
+			const contentType = response.headers.get('content-type');
+			if (contentType && contentType.indexOf('application/json') !== -1) {
+				return response.json();
+			}
+			return response;
+		})
 		.then(resBody => {
-			logResponse(method, url, resBody);
+			// logResponse(method, url, resBody);
 			return resBody;
 		});
 };

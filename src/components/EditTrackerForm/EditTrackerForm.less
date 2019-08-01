@@ -7,9 +7,9 @@
 
 .tracker-form .option-name {
   padding-bottom: 15px;
-  margin: 0;
-  display: flex;
-  align-items: center;
+  flex-direction: row;
+  align-content: flex-start;
+  justify-content: space-between;
 }
 
 .tracker-form .option .ant-select {
@@ -26,4 +26,22 @@
 .tracker-form .option-name .spin-icon {
   padding-left: 5px;
   padding-bottom: 12px;
+}
+
+.trash-icon {
+  color: @text-color-secondary;
+  margin-top: 3px;
+  font-size: 16px;
+  transition: color 0.2s ease;
+  float: right;
+
+  &:hover {
+    color: @warning-color;
+  }
+}
+
+.trash-wrapper {
+  display: flex;
+  align-content: space-between;
+  float: right;
 }
