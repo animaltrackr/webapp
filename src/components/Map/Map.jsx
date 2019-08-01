@@ -15,11 +15,11 @@ class Map extends Component {
 						point.geo_lat = point.geo_long;
 						point.geo_long = tmp;
 					}
-					const pointTimestamp = new Date(pos.timestamp);
+					const pointTimestamp = new Date(point.timestamp);
 					if (
-						!this.props.timeRange.startDate ||
-						(pointTimestamp >= this.props.timeRange.startDate &&
-							pointTimestamp <= this.props.timeRange.endDate)
+						!timeRange.startDate ||
+						(pointTimestamp >= timeRange.startDate &&
+							pointTimestamp <= timeRange.endDate)
 					) {
 						return (
 							<Tooltip
