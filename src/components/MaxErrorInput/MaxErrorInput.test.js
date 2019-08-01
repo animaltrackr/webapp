@@ -1,10 +1,10 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import ColourOptions from './ColourOptions';
+import MaxErrorInput from './MaxErrorInput';
 
-describe('<ColourOptions />', () => {
+describe('<MaxErrorInput />', () => {
 	test('renders', () => {
-		const wrapper = shallow(<ColourOptions />);
+		const wrapper = shallow(<MaxErrorInput />);
 		expect(wrapper).toMatchSnapshot();
 	});
 });

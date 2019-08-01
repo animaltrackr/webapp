@@ -1,10 +1,10 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import StatusOptions from './StatusOptions';
+import AddTrackerForm from './AddTrackerForm';
 
-describe('<StatusOptions />', () => {
+describe('<AddTrackerForm />', () => {
 	test('renders', () => {
-		const wrapper = shallow(<StatusOptions />);
+		const wrapper = shallow(<AddTrackerForm />);
 		expect(wrapper).toMatchSnapshot();
 	});
 });
